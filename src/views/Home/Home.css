@@ -1,0 +1,39 @@
+.content {
+  height: calc(100vh - 83px);
+  width: auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.content p {
+  font-size: 16px;
+}
+
+.content h1 {
+  font-size: 48px;
+}
+
+.content .menu {
+  list-style: none;
+  margin: 4em 0;
+}
+
+.content .menu li {
+  display: inline-block;
+  padding: 12px 24px;
+  border: 1px solid #000;
+  margin: 0 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.content .menu li a {
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  color: #000;
+  letter-spacing: 2px;
+}
