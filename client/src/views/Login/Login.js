@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { reduxForm } from "redux-form";
 import app from "../../base";
 
 /**
@@ -19,10 +18,4 @@ class Login extends Component {
     );
   }
 }
-
-// redux form
-Login = reduxForm({
-  form: "login"
-})(Login);
-
 export default Login;

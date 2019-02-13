@@ -1,18 +1,17 @@
 import { GET_ERRORS, SET_CURRENT_USER } from "./types";
-import firebase from "../base";
+import { userRef, authRef } from "../base";
 
 // a register action
 export const registerUser = (userData, history) => dispatch => {
-  firebase
-    .auth()
+  authRef
     .createUserWithEmailAndPassword(userData.email, userData.password)
     .then(res => {
-      dispatch({
-        type: SET_CURRENT_USER,
-        payload: res
+      userRef(res.user.uid).set({
+        fullName: userData.name,
+        email: userData.email
       });
     })
-    .then(() => history.push("/"))
+    .then(() => history.push("/dashboard"))
     .catch(err => {
       if (err) {
         dispatch({
