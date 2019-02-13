@@ -11,14 +11,16 @@ import Home from "./views/Home/Home";
 import Register from "./views/Register/Register";
 import Login from "./views/Login/Login";
 
-export default function routes() {
+const Routes = () => {
   return (
     <App>
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/register" component={Register} />
-        <Route exact path="/login" component={Login} />
+        <Route exact path="/" render={() => <Home />} />
+        <Route exact path="/register" render={() => <Register />} />
+        <Route exact path="/login" render={() => <Login />} />
       </Switch>
     </App>
   );
-}
+};
+
+export default Routes;

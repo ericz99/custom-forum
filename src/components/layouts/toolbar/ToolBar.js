@@ -13,7 +13,7 @@ export default class ToolBar extends Component {
    */
   render() {
     return (
-      <div className="wrapper">
+      <div className="navbar">
         <ul className="menu">
           <li>
             <Link to="/">Custom Forum</Link>

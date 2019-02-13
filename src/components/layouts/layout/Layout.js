@@ -5,7 +5,7 @@ import ToolBar from "../toolbar/ToolBar";
 export default class Layout extends Component {
   render() {
     return (
-      <div>
+      <div className="layout-content">
         <ToolBar />
         {this.props.children}
       </div>

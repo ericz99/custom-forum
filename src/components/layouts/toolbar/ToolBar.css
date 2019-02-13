@@ -1,21 +1,21 @@
-.wrapper {
+.navbar {
   height: auto;
   width: auto;
   background: aliceblue;
 }
 
-.wrapper ul {
+.navbar ul {
   padding: 2em 4em;
   list-style: none;
   text-align: right;
 }
 
-.wrapper ul li {
+.navbar ul li {
   display: inline-block;
   padding: 0 20px;
 }
 
-.wrapper ul li a {
+.navbar ul li a {
   text-decoration: none;
   font-size: 16px;
   font-weight: 900;
@@ -24,7 +24,7 @@
   text-transform: uppercase;
 }
 
-.wrapper ul li:first-child {
+.navbar ul li:first-child {
   float: left;
 }
 
