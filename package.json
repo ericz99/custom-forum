@@ -4,7 +4,12 @@
   "description": "Custom forum just like reddit, allow user to post topic and comment on them!",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "client-install": "npm install --prefix client",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "repository": {
     "type": "git",
@@ -25,5 +30,8 @@
     "mongoose": "^5.4.11",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
   }
 }
