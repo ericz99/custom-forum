@@ -1,3 +1,5 @@
+const _ = require("underscore");
+
 // our models
 const Post = require("../models/Post");
 const Topic = require("../models/Topic");
@@ -123,14 +125,15 @@ module.exports = {
   subscribeAPIRoute: async (req, res, next) => {
     /**
      *
-     * TODO: if user has already subscribed to the thread, they shouldn't subsribe again!
-     * FIXME: updating subscriber +1, and adding the user into the users array of the subscriber object query
+     * TODO:
+     *
      */
 
     const { id } = req.params;
 
-    const topic = await Topic.findOne({ _id: id });
+    const topic = await Topic.findOne({ _id: id }).exec();
 
+    // check if no topic found
     if (!topic) {
       return res.status(404).json({
         statusCode: 404,
@@ -139,6 +142,7 @@ module.exports = {
       });
     }
 
+    // check if you're the owner of this topic
     if (topic.user.toString() === req.user.id) {
       return res.status(404).json({
         statusCode: 404,
@@ -146,6 +150,21 @@ module.exports = {
       });
     }
 
+    // find user that match index id
+    const findIndex = topic.subscriber.users.find(
+      val => val.user == req.user.id
+    );
+
+    // only display this if user is already subscribed to this topic thread
+    if (findIndex) {
+      return res.status(404).json({
+        statusCode: 404,
+        error:
+          "Opps, it looks like you're already subscribed to this topic thread!"
+      });
+    }
+
+    // increase number of subscriber +1
     await topic.subscriber.numberOfSubscriber++;
 
     // // add user
@@ -160,6 +179,55 @@ module.exports = {
       error: null,
       data: {
         msg: "Successfully subscribed to your favorite topic!"
+      }
+    });
+  },
+  // @route   GET api/users/topic/unsubscribe/:id
+  // @desc    unsubscribe to the topic by id
+  // @access  Private
+  unsubscribeAPIRoute: async (req, res, next) => {
+    const { id } = req.params;
+
+    const topic = await Topic.findById({ _id: id })
+      .sort({ date: -1 })
+      .exec();
+
+    // check if no topic found
+    if (!topic) {
+      return res.status(404).json({
+        statusCode: 404,
+        error:
+          "Opps, looks like the topic that you tried subscribing already has been deleted!"
+      });
+    }
+
+    // find user that match index id
+    const findIndex = topic.subscriber.users
+      .map(val => val.user.toString())
+      .indexOf(req.user.id);
+
+    // check if user is already unsubscribed
+    if (findIndex === -1) {
+      return res.status(404).json({
+        statusCode: 404,
+        error: "Opps, it looks like you aren't subscribed to this topic thread!"
+      });
+    }
+    // unsubscribed thread , and also decrease the subscriber number -1
+    await topic.subscriber.numberOfSubscriber--;
+
+    // splice out the user of the users array
+    await topic.subscriber.users.splice(findIndex, 1);
+
+    // save the updated quieres changes
+    await topic.save();
+
+    // let user know the response
+    return res.status(200).json({
+      statusCode: 200,
+      error: null,
+      data: {
+        msg: "Successfully unsubscribed to your the topic thread!"
       }
     });
   }
