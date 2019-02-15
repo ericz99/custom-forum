@@ -52,11 +52,13 @@ module.exports = {
   fetchTopicAPIRoute: async (req, res, next) => {
     const { id } = req.params;
 
-    const topic = await Topic.findOne({ _id: id })
+    const topic = await Topic.find({})
       .populate("post", ["title", "desc", "image", "date"])
       .exec();
 
-    if (!topic) {
+    const topicMatch = topic.find(val => val._id == id);
+
+    if (!topicMatch) {
       return res.status(404).json({
         statusCode: 404,
         error:
@@ -66,7 +68,7 @@ module.exports = {
       return res.status(200).json({
         statusCode: 200,
         error: null,
-        data: topic
+        data: topicMatch
       });
     }
   },
@@ -255,6 +257,49 @@ module.exports = {
       error: null,
       data: {
         msg: "Successfully unsubscribed to your the topic thread!"
+      }
+    });
+  },
+  // @route   GET api/topic/:id/posts/all
+  // @desc    fetch all topic posts
+  // @access  Private
+  fetchAllTopicPostAPIRoute: async (req, res, next) => {
+    const { id } = req.params;
+
+    const topic = await Topic.find({}).sort({ date: -1 });
+
+    const topicMatch = topic.find(val => val._id == id);
+
+    if (!topicMatch) {
+      return res.status(404).json({
+        statusCode: 404,
+        error:
+          "Opps, looks like the topic you clicked already has been deleted!"
+      });
+    }
+
+    const post = await Post.find({}).sort({ date: -1 });
+
+    // filter to see what is the same
+    const postMatch = post.filter(o1 =>
+      topicMatch.posts.some(o2 => o1._id !== o2.post)
+    );
+
+    // check if postmatch array is === 0; only display if no post is found for any topic
+    if (postMatch.length === 0) {
+      return res.status(202).json({
+        statusCode: 202,
+        error: "Opps, looks like there's not post for this topic yet!"
+      });
+    }
+
+    // only return this reponse if postmatch matches is true and has stuff in the array
+    return res.status(200).json({
+      statusCode: 200,
+      error: null,
+      data: {
+        msg: "Successfully fetch posts for this topic!",
+        json: postMatch
       }
     });
   }

@@ -9,7 +9,8 @@ const {
   fetchTopicAPIRoute,
   deleteTopicAPIRoute,
   subscribeAPIRoute,
-  unsubscribeAPIRoute
+  unsubscribeAPIRoute,
+  fetchAllTopicPostAPIRoute
 } = require("../../controllers/topic");
 
 // @route   GET api/topic/test
@@ -64,5 +65,12 @@ Router.get(
   passport.authenticate("jwt", { session: false }),
   fetchTopicAPIRoute
 );
-
+// @route   GET api/users/topics/:id/post/all
+// @desc    fetch all topic posts
+// @access  Private
+Router.get(
+  "/:id/posts/all",
+  passport.authenticate("jwt", { session: false }),
+  fetchAllTopicPostAPIRoute
+);
 module.exports = Router;

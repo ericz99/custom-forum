@@ -13,6 +13,7 @@ Custom forum just like reddit, allow user to post topic and comment on them!
 - Understand how authentication works with integrated JWT token & passportjs
 - Understand how session cookies works + how to work with cookies
 - Understand how to perform access control in front + back end development
+- Understand the difference between client side validation + server side validation
 
 # Technology I used to build this application
 

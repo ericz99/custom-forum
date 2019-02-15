@@ -4,7 +4,7 @@ const Topic = require("../models/Topic");
 /**
  *
  * TODO: guest users can post as anynomous
- * TODO: delete post by id => also remove topic posts array -4
+ * TODO: delete post by id => also remove topic posts array -1
  * TODO: allow user to comment + like + report post
  */
 

@@ -3,6 +3,11 @@ const Post = require("../models/Post");
 const Topic = require("../models/Topic");
 const User = require("../models/Users");
 
+/**
+ *
+ * TODO: update postref => if user posted; same goes for making topic and saving posts
+ */
+
 module.exports = {
   // @route   GET api/profile/test
   // @desc    Tests profile route
