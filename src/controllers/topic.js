@@ -281,9 +281,7 @@ module.exports = {
     const post = await Post.find({}).sort({ date: -1 });
 
     // filter to see what is the same
-    const postMatch = post.filter(o1 =>
-      topicMatch.posts.some(o2 => o1._id !== o2.post)
-    );
+    const postMatch = post.filter(o1 => o1.topic.toString() == topicMatch._id);
 
     // check if postmatch array is === 0; only display if no post is found for any topic
     if (postMatch.length === 0) {

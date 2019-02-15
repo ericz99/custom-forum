@@ -6,6 +6,7 @@ const Topic = require("../models/Topic");
  * TODO: guest users can post as anynomous
  * TODO: delete post by id => also remove topic posts array -1
  * TODO: allow user to comment + like + report post
+ * TODO: have userid + topicid of each post when created!
  */
 
 module.exports = {
@@ -50,6 +51,8 @@ module.exports = {
 
     // create new post object
     const newPost = new Post({
+      user: req.user.id,
+      topic: topicMatch._id,
       title,
       desc,
       image,
@@ -74,5 +77,9 @@ module.exports = {
         json: userPost
       }
     });
-  }
+  },
+  // @route   GET api/post/topic/:id/delete
+  // @desc    delete post route
+  // @access  Private
+  deletePostAPIRoute: async (req, res, next) => {}
 };
