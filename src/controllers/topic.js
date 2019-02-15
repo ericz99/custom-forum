@@ -4,9 +4,17 @@ const _ = require("underscore");
 const Post = require("../models/Post");
 const Topic = require("../models/Topic");
 
+/**
+ *
+ * TODO: report a topic for any supicious activties - if topic has more than 10+ reports then it get temp shut down until admin resolve issue
+ * TODO: list of post number; for example there are 10 post in this topic
+ * TODO: endpoint: list of post that the topic currently have
+ *
+ */
+
 module.exports = {
-  // @route   GET api/users/text
-  // @desc    Tests users route
+  // @route   GET api/topic/test
+  // @desc    Tests topic route
   // @access  Public
   testAPIRoute: async (req, res, next) => {
     return res.status(200).json({
@@ -21,12 +29,38 @@ module.exports = {
   // @desc    fetches all created topics
   // @access  Private
   fetchAllTopicAPIRoute: async (req, res, next) => {
-    const topic = await Topic.find().sort({ date: -1 });
+    const topic = await Topic.find()
+      .sort({ date: -1 })
+      .populate("post", ["title", "desc", "image"]);
 
     if (!topic) {
       return res.status(404).json({
         statusCode: 404,
         error: "No topic available. You can create one if you like!"
+      });
+    } else {
+      return res.status(200).json({
+        statusCode: 200,
+        error: null,
+        data: topic
+      });
+    }
+  },
+  // @route   GET api/users/topic/:id
+  // @desc    fetch a specific topic id
+  // @access  Private
+  fetchTopicAPIRoute: async (req, res, next) => {
+    const { id } = req.params;
+
+    const topic = await Topic.findOne({ _id: id })
+      .populate("post", ["title", "desc", "image", "date"])
+      .exec();
+
+    if (!topic) {
+      return res.status(404).json({
+        statusCode: 404,
+        error:
+          "Opps, looks like the topic you clicked already has been deleted!"
       });
     } else {
       return res.status(200).json({
@@ -64,7 +98,6 @@ module.exports = {
       name,
       desc,
       "subscriber.numberOfSubscriber": 0,
-      posts: [],
       date: new Date().getTime()
     });
 
@@ -123,12 +156,6 @@ module.exports = {
   // @desc    subscribe to the topic by id
   // @access  Private
   subscribeAPIRoute: async (req, res, next) => {
-    /**
-     *
-     * TODO:
-     *
-     */
-
     const { id } = req.params;
 
     const topic = await Topic.findOne({ _id: id }).exec();

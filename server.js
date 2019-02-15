@@ -23,6 +23,8 @@ mongoose.connect(db, { useNewUrlParser: true, useCreateIndex: true }, err => {
     // api routes
     app.use("/api/users", require("./src/routes/api/users"));
     app.use("/api/topic", require("./src/routes/api/topic"));
+    app.use("/api/post", require("./src/routes/api/post"));
+    app.use("/api/profile", require("./src/routes/api/profile"));
 
     app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
   } else {

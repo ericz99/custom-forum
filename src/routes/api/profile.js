@@ -4,21 +4,21 @@ const passport = require("passport");
 
 const {
   testAPIRoute,
-  createNewPostAPIRoute
-} = require("../../controllers/post");
+  loadProfileAPIRoute
+} = require("../../controllers/profile");
 
-// @route   GET api/post/test
-// @desc    Tests post route
+// @route   GET api/profile/test
+// @desc    Tests profile route
 // @access  Public
 Router.get("/test", testAPIRoute);
 
-// @route   POST api/post/topic/:id/create
-// @desc    create new post route
+// @route   GET api/profile/load
+// @desc    loads profile information of logged in user
 // @access  Private
-Router.post(
-  "/topic/:id/create",
+Router.get(
+  "/load",
   passport.authenticate("jwt", { session: false }),
-  createNewPostAPIRoute
+  loadProfileAPIRoute
 );
 
 module.exports = Router;

@@ -6,6 +6,10 @@ const PostSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "users"
   },
+  topic: {
+    type: Schema.Types.ObjectId,
+    ref: "topic"
+  },
   title: {
     type: String,
     required: true
@@ -17,12 +21,20 @@ const PostSchema = new Schema({
   image: {
     type: String
   },
-  save: {
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: "users"
-    }
+  upvote: {
+    type: Number
   },
+  downvote: {
+    type: Number
+  },
+  likes: [
+    {
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: "users"
+      }
+    }
+  ],
   comments: [
     {
       user: {
