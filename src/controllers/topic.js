@@ -137,9 +137,7 @@ module.exports = {
     if (topic.user.toString() !== req.user.id) {
       return res.status(404).json({
         statusCode: 404,
-        error: {
-          notauthorized: "User does not have permission to delete this topic!"
-        }
+        error: "User does not have permission to delete this topic!"
       });
     } else {
       // remove topic from database
