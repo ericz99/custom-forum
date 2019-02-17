@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { registerUser } from "../../actions/authActions";
+// import { registerUser } from "../../actions/authActions";
 import Validate from "../../utils/validate";
 import InputField from "../../components/common/InputField";
 
@@ -61,7 +61,7 @@ class Register extends Component {
     this.setState({ clientErrors: [] });
 
     // submit form
-    this.props.registerUser(newUser, this.props.history);
+    // this.props.registerUser(newUser, this.props.history);
   };
 
   render() {
@@ -122,5 +122,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { registerUser }
+  {}
 )(withRouter(Register));
