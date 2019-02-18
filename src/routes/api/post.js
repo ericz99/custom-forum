@@ -25,8 +25,8 @@ Router.post(
 // @route   GET api/post/topic/:id/delete
 // @desc    delete post route
 // @access  Private
-Router.get(
-  "/topic/:id/delete",
+Router.delete(
+  "/topic/:topicId/delete/:postId",
   passport.authenticate("jwt", { session: false }),
   deletePostAPIRoute
 );
