@@ -95,18 +95,33 @@ module.exports = {
   // @access  Private
   viewPostAPIRoute: async (req, res, next) => {
     try {
-      const { topicId, postId } = rew.params;
+      const { topicId, postId } = req.params;
 
-      // search for an given topic by id
-      const topic = await Topic.findById({ _id: topicId }).sort({ date: -1 });
+      // search for an given topic by id and postid => and one of them doesn't match then it will result in error
+      const post = await Post.find({}).sort({
+        date: -1
+      });
 
-      // if topic not found
-      if (!topic) {
-        return res.status(404).json({
-          statusCode: 404,
-          error: "Opps, looks like topic doesn't exist anymore!"
+      // find post match
+      const postMatch = post.find(val => val._id == postId);
+
+      // check if post exist or if topicid of the post doesn't match the current topic id section then return error
+      if (!postMatch || postMatch.topic.toString() !== topicId) {
+        return res.status(500).json({
+          statusCode: 500,
+          error: "Opps, looks like url that you're going to doesn't exist!"
         });
       }
+
+      // return user response
+      return res.status(200).json({
+        statusCode: 200,
+        error: null,
+        data: {
+          msg: "Successfully fetched post!",
+          json: postMatch
+        }
+      });
     } catch (error) {
       if (error) {
         return res.status(500).json({
@@ -130,7 +145,7 @@ module.exports = {
       // find if topic id doesn't match
       if (!topicMatch) {
         return res.status(404).json({
-          statusCode: 4040,
+          statusCode: 404,
           error:
             "Opps, looks like the topic you tried to post is either deleted or have been removed from the main thread!"
         });

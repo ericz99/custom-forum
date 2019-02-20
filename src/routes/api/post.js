@@ -5,7 +5,8 @@ const passport = require("passport");
 const {
   testAPIRoute,
   createNewPostAPIRoute,
-  deletePostAPIRoute
+  deletePostAPIRoute,
+  viewPostAPIRoute
 } = require("../../controllers/post");
 
 // @route   GET api/post/test
@@ -29,6 +30,15 @@ Router.delete(
   "/topic/:topicId/delete/:postId",
   passport.authenticate("jwt", { session: false }),
   deletePostAPIRoute
+);
+
+// @route   GET api/post/topic/:topicId/:postId
+// @desc    delete post route
+// @access  Private
+Router.get(
+  "/topic/:topicId/:postId",
+  passport.authenticate("jwt", { session: false }),
+  viewPostAPIRoute
 );
 
 module.exports = Router;

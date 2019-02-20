@@ -9,7 +9,7 @@ const Topic = require("../models/Topic");
  * TODO: report a topic for any supicious activties - if topic has more than 10+ reports then it get temp shut down until admin resolve issue
  * TODO: list of post number; for example there are 10 post in this topic
  * TODO: endpoint: list of post that the topic currently have
- *
+ * TODO: have your topic name as an endpoint for ex: https://custom-forum.xyz/:topicName/:postID etc etc...
  */
 
 module.exports = {

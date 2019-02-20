@@ -1,6 +1,6 @@
 # Custom Forum
 
-Custom forum just like reddit, allow user to post topic and comment on them!
+Custom forum just like reddit, allow user to create a topic, and make a post about that specific topic!
 
 # What I Learned
 
@@ -9,7 +9,7 @@ Custom forum just like reddit, allow user to post topic and comment on them!
 - Able to construct my own webpack file
 - Learned how to bundle + minified all codes into one file
 - Learned how to make an AJAX Request (w/ Restful API access)
-- Understand how non-relational databases work (MongoDB) + populating with other model schemas
+- Understand how non-relational databases work (MongoDB) + populating with other model schemas + advanced mongodb aggregation
 - Understand how authentication works with integrated JWT token & passportjs
 - Understand how session cookies works + how to work with cookies
 - Understand how to perform access control in front + back end development
@@ -38,7 +38,7 @@ Custom forum just like reddit, allow user to post topic and comment on them!
 - npm install the main directory => to install backend stuff
 - to run both client + server same time please run => npm run dev
 - if you're planning to deploy to heroku => please make a .env file to input
-  your mongoURI, and SECRET_OR_KEY in the "MAIN DIR" => then follow heroku guide to deploy the applicaton
+  your mongoURI, and SECRET_OR_KEY in the "MAIN DIR FOLDER" => then follow heroku guide to deploy the applicaton
 
 # Questions? or Bug report?
 
