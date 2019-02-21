@@ -1,4 +1,4 @@
-const validation = data => {
+export const registerValidator = data => {
   const errors = [];
 
   if (data.name.length === 0) {
@@ -38,4 +38,16 @@ const validation = data => {
   return errors;
 };
 
-export default validation;
+export const loginValidator = data => {
+  const errors = [];
+
+  if (data.email.length === 0) {
+    errors.push({ email: "Email field is required" });
+  }
+
+  if (data.password.length === 0) {
+    errors.push({ password: "Password field is required" });
+  }
+
+  return errors;
+};

@@ -1,0 +1,27 @@
+.error-panel {
+  width: 80%;
+  margin: 0 auto;
+  height: auto;
+  padding: 2em 4em;
+}
+
+.error-header {
+  height: 60px;
+  line-height: 60px;
+  background-color: crimson;
+}
+
+.error-header h2 {
+  padding: 0 2em;
+  color: #fff;
+  text-align: center;
+}
+
+.error-body {
+  padding: 2em 4em;
+}
+
+.error-body h4 {
+  font-size: 18px;
+  font-weight: 600;
+}

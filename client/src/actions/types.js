@@ -1,3 +1,14 @@
 export const GET_ERRORS = "GET_ERRORS";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
+export const ADD_TOPIC = "ADD_TOPIC";
+export const REMOVE_TOPIC = "REMOVE_TOPIC";
+export const VIEW_TOPIC = "VIEW_TOPIC";
+export const VIEW_ALL_TOPIC = "VIEW_ALL_TOPIC";
+export const ADD_POST = "ADD_POST";
+export const REMOVE_POST = "REMOVE_POST";
+export const GET_POST = "GET_POST";
+export const GET_POSTS = "GET_POSTS";
+export const POST_LOADING = "POST_LOADING";
+export const GET_PROFILE_SETTINGS = "GET_PROFILE_SETTINGS";
+export const PROFILE_LOADING = "PROFILE_LOADING";

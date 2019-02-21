@@ -1,12 +1,15 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-// import { registerUser } from "../../actions/authActions";
-import Validate from "../../utils/validate";
-import InputField from "../../components/common/InputField";
+import { registerUser } from "../../actions/authActions";
 
-import "./Register.css";
+import { registerValidator } from "../../utils/validate";
+import InputField from "../../components/common/InputField";
+import ErrorPanel from "../../components/common/ErrorPanel";
+
+import "../../styles/Form.css";
 
 /**
  *
@@ -23,9 +26,9 @@ class Register extends Component {
     errors: {}
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
+      await this.props.history.push("/dashboard");
     }
   }
 
@@ -49,7 +52,7 @@ class Register extends Component {
       confirmPassword: this.state.confirmPassword
     };
 
-    const errors = Validate(newUser);
+    const errors = registerValidator(newUser);
 
     // check if errors length is greater than 0
     if (errors.length > 0) {
@@ -61,15 +64,15 @@ class Register extends Component {
     this.setState({ clientErrors: [] });
 
     // submit form
-    // this.props.registerUser(newUser, this.props.history);
+    this.props.registerUser(newUser, this.props.history);
   };
 
   render() {
     const { clientErrors, errors } = this.state;
 
-    // console.log(errors); this errors will say "Email is already in used!"
     return (
       <div>
+        {errors.error == null ? "" : <ErrorPanel error={errors.error} />}
         <form onSubmit={e => this.onSubmitHandler(e)}>
           <InputField
             type="text"
@@ -106,7 +109,7 @@ class Register extends Component {
           <div className="right">
             <Link to="/login">Already got an account?</Link>
           </div>
-          <button>
+          <button type="submit">
             <span>register</span>
           </button>
         </form>
@@ -115,6 +118,12 @@ class Register extends Component {
   }
 }
 
+Register.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+};
+
 const mapStateToProps = state => ({
   auth: state.auth,
   errors: state.errors
@@ -122,5 +131,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {}
+  { registerUser }
 )(withRouter(Register));

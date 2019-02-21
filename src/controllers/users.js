@@ -12,7 +12,7 @@ module.exports = {
   testAPIRoute: async (req, res, next) => {
     return res.status(200).json({
       statusCode: 200,
-      errors: [],
+      error: null,
       data: {
         msg: "OK, test route worked!"
       }
@@ -41,9 +41,9 @@ module.exports = {
       const user = await User.findOne({ email });
 
       if (user) {
-        return res.status(401).json({
-          statusCode: 401,
-          errors: [{ reason: "Email already existed in the database!" }]
+        return res.status(404).json({
+          statusCode: 404,
+          error: "Email already existed in the database!"
         });
       }
 
@@ -60,7 +60,7 @@ module.exports = {
       await newUser.save();
       return res.status(200).json({
         statusCode: 200,
-        errors: [],
+        error: null,
         data: {
           type: "success",
           msg: "Successfully created account!"
@@ -83,9 +83,9 @@ module.exports = {
       const { email, password } = req.body;
 
       if (email === "" || password === "") {
-        return res.status(400).json({
-          statusCode: 400,
-          errors: [{ reason: "Opps, looks like some field is left blank!" }]
+        return res.status(404).json({
+          statusCode: 404,
+          error: "Opps, looks like some field is left blank!"
         });
       }
 
@@ -94,14 +94,10 @@ module.exports = {
 
       // check only if user does not exist
       if (!user) {
-        return res.status(400).json({
-          statusCode: 400,
-          errors: [
-            {
-              reason:
-                "Opps, looks like email does not exist, please create one to continue!"
-            }
-          ]
+        return res.status(404).json({
+          statusCode: 404,
+          error:
+            "Opps, looks like email does not exist, please create one to continue!"
         });
       }
 
@@ -110,9 +106,9 @@ module.exports = {
 
       // if password does not match
       if (!isMatch) {
-        return res.status(400).json({
-          statusCode: 400,
-          errors: [{ reason: "Password does match, please try again" }]
+        return res.status(404).json({
+          statusCode: 404,
+          error: "Password does match, please try again"
         });
       }
 
@@ -123,15 +119,15 @@ module.exports = {
         if (!err) {
           return res.status(200).json({
             statusCode: 200,
-            errors: [],
+            error: null,
             data: {
               token: "Bearer " + token
             }
           });
         } else {
-          return res.status(400).json({
-            statusCode: 400,
-            errors: [{ reason: err }]
+          return res.status(404).json({
+            statusCode: 404,
+            error: err
           });
         }
       });
@@ -151,7 +147,7 @@ module.exports = {
     if (res.statusCode !== 401) {
       return res.status(200).json({
         statusCode: 200,
-        errors: [],
+        error: null,
         data: {
           _id: req.user.id,
           name: req.user.name,
@@ -161,7 +157,7 @@ module.exports = {
     } else {
       return res.status(400).json({
         statusCode: 400,
-        errors: [{ reason: "Invalid access token" }]
+        error: "Invalid access token"
       });
     }
   }
