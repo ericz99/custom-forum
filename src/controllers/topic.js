@@ -30,22 +30,15 @@ module.exports = {
   // @access  Private
   fetchAllTopicAPIRoute: async (req, res, next) => {
     try {
-      const topic = await Topic.find()
+      const topic = await Topic.find({})
         .sort({ date: -1 })
         .populate("post", ["title", "desc", "image"]);
 
-      if (!topic) {
-        return res.status(404).json({
-          statusCode: 404,
-          error: "No topic available. You can create one if you like!"
-        });
-      } else {
-        return res.status(200).json({
-          statusCode: 200,
-          error: null,
-          data: topic
-        });
-      }
+      return res.status(200).json({
+        statusCode: 200,
+        error: null,
+        data: topic
+      });
     } catch (error) {
       if (error) {
         return res.status(500).json({
@@ -69,8 +62,8 @@ module.exports = {
       const topicMatch = topic.find(val => val._id == id);
 
       if (!topicMatch) {
-        return res.status(404).json({
-          statusCode: 404,
+        return res.status(400).json({
+          statusCode: 400,
           error:
             "Opps, looks like the topic you clicked already has been deleted!"
         });
@@ -100,7 +93,7 @@ module.exports = {
       if (name === "" || desc === "") {
         return res.status(400).json({
           statusCode: 400,
-          errors: [{ reason: "Opps, looks like some field is left blank!" }]
+          error: "Opps, looks like some field is left blank!"
         });
       }
 
@@ -109,9 +102,7 @@ module.exports = {
       if (topic) {
         return res.status(400).json({
           statusCode: 400,
-          errors: [
-            { reason: "Opps, looks like topic name already been taken!" }
-          ]
+          error: "Opps, looks like topic name already been taken!"
         });
       }
 
@@ -129,10 +120,10 @@ module.exports = {
       // give user response
       return res.status(200).json({
         statusCode: 200,
-        errors: [],
+        error: null,
         data: {
           msg: "Successfully created new topic thread!",
-          topic_obj: newTopic
+          json: newTopic
         }
       });
     } catch (error) {

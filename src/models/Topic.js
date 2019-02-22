@@ -15,6 +15,9 @@ const TopicSchema = new Schema({
     type: String,
     required: true
   },
+  image: {
+    type: String
+  },
   subscriber: {
     numberOfSubscriber: {
       type: Number
