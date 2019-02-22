@@ -26,10 +26,9 @@ class Login extends Component {
     errors: {}
   };
 
-  async componentDidMount() {
-    console.log(this.props.auth);
+  componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      await this.props.history.push("/dashboard");
+      this.props.history.push("/dashboard");
     }
   }
 

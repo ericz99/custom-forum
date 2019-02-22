@@ -3,10 +3,8 @@ import {
   REMOVE_TOPIC,
   VIEW_TOPIC,
   VIEW_ALL_TOPIC,
-  GET_POSTS,
-  GET_POST,
-  POST_LOADING
-} from "./types";
+  TOPIC_LOADING
+} from "../actions/types";
 
 const initialState = {
   topics: [],
@@ -16,11 +14,32 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
+    case TOPIC_LOADING:
+      return {
+        ...state,
+        isLoading: true
+      };
     case ADD_TOPIC:
       return {
         ...state,
-        isLoading: true,
         topics: [action.payload, ...state.topics]
+      };
+    case REMOVE_TOPIC:
+      return {
+        ...state,
+        topics: state.topics.filter(topic => topic._id !== action.payload)
+      };
+    case VIEW_ALL_TOPIC:
+      return {
+        ...state,
+        topics: action.payload,
+        isLoading: false
+      };
+    case VIEW_TOPIC:
+      return {
+        ...state,
+        topic: action.payload,
+        isLoading: false
       };
     default:
       return state;

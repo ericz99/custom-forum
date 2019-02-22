@@ -7,6 +7,8 @@ import * as serviceWorker from "./serviceWorker";
 
 import store from "./store";
 
+import "font-awesome/css/font-awesome.min.css";
+
 ReactDOM.render(
   <Provider store={store}>
     <Router>

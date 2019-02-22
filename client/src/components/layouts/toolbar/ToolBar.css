@@ -1,13 +1,14 @@
 .navbar {
-  height: auto;
+  height: 80px;
   width: auto;
   background: aliceblue;
 }
 
 .navbar ul {
-  padding: 2em 4em;
   list-style: none;
   text-align: right;
+  height: 80px;
+  line-height: 80px;
 }
 
 .navbar ul li {
@@ -26,6 +27,39 @@
 
 .navbar ul li:first-child {
   float: left;
+}
+
+.navbar ul li > p {
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer */
+  -khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */
+  -webkit-user-select: none; /* Chrome, Safari, and Opera */
+  -webkit-touch-callout: none; /* Disable Android and iOS callouts*/
+}
+
+.navbar ul li p span {
+  padding: 0 0 0 10px;
+  font-size: 18px;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.menu-list {
+  background: #fff;
+}
+
+.menu-list a {
+  display: block;
+  font-size: 14px !important;
+  letter-spacing: 0 !important;
+  padding: 0 15px;
+  border-bottom: 1px solid #000;
+  text-align: left;
+}
+
+.menu-list a i {
+  padding: 0 15px;
+  font-size: 18px;
 }
 
 /**

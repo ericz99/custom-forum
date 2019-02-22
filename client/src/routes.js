@@ -11,6 +11,7 @@ import Register from "./views/Register/Register";
 import Login from "./views/Login/Login";
 import Dashboard from "./views/Dashboard/Dashboard";
 import Topic from "./views/Topic/Topic";
+import TopicForm from "./views/Topic/TopicStuff/TopicForm";
 import jwt_decode from "jwt-decode";
 
 import { setCurrentUser, logoutUser } from "./actions/authActions";
@@ -48,6 +49,9 @@ const Routes = () => {
       </Switch>
       <Switch>
         <PrivateRoute exact path="/topic" component={Topic} />
+      </Switch>
+      <Switch>
+        <PrivateRoute exact path="/create-topic" component={TopicForm} />
       </Switch>
     </App>
   );

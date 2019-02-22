@@ -26,9 +26,9 @@ class Register extends Component {
     errors: {}
   };
 
-  async componentDidMount() {
+  componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      await this.props.history.push("/dashboard");
+      this.props.history.push("/dashboard");
     }
   }
 

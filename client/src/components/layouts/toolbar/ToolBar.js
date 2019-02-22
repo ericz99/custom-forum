@@ -3,41 +3,74 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import setAuthToken from "../../../utils/setAuthToken";
-import { setCurrentUser } from "../../../actions/authActions";
-import store from "../../../store";
+import { logoutUser } from "../../../actions/authActions";
 
 import "./ToolBar.css";
 import "../../../styles/Global.css";
 
 class ToolBar extends Component {
+  state = {
+    showMenu: false
+  };
+
   onClickHandler = e => {
-    if (e.target) {
-      // remove token from localstorage
-      localStorage.removeItem("jwtToken");
-      // set auth false
-      setAuthToken(false);
-      // set current user as unauthenticated
-      store.dispatch(setCurrentUser({}));
-      // redirect user back to home page
-      window.location.href = "/";
+    e.preventDefault();
+    this.props.logoutUser();
+  };
+
+  onShowHandler = e => {
+    e.preventDefault();
+    this.setState({ showMenu: true }, () => {
+      document.addEventListener("click", this.closeMenu);
+    });
+  };
+
+  closeMenu = e => {
+    if (!this.dropdownMenu.contains(e.target)) {
+      this.setState({ showMenu: false }, () => {
+        document.removeEventListener("click", this.closeMenu);
+      });
     }
   };
 
   render() {
-    const { auth } = this.props;
+    const { isAuthenticated, user } = this.props.auth;
     let userRoute;
 
-    if (auth.isAuthenticated) {
+    if (isAuthenticated) {
       userRoute = (
         <ul className="menu">
           <li>
             <Link to="/topic">Custom Forum</Link>
           </li>
           <li>
-            <Link to="/" onClick={e => this.onClickHandler(e)}>
-              Logout
-            </Link>
+            <p>
+              Welcome <strong>{user.name}</strong>{" "}
+              <span onClick={e => this.onShowHandler(e)}>
+                <i className="fa fa-ellipsis-v" />
+              </span>
+            </p>
+            {this.state.showMenu && (
+              <div
+                className="menu-list"
+                ref={element => {
+                  this.dropdownMenu = element;
+                }}
+              >
+                <Link to="/user/:name">
+                  <i className="fa fa-user" />
+                  My Profile
+                </Link>
+                <Link to="/settings">
+                  <i className="fa fa-cogs" />
+                  User Settings
+                </Link>
+                <Link to="/" onClick={e => this.onClickHandler(e)}>
+                  <i className="fa fa-sign-out" />
+                  Logout
+                </Link>
+              </div>
+            )}
           </li>
         </ul>
       );
@@ -69,4 +102,7 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps)(ToolBar);
+export default connect(
+  mapStateToProps,
+  { logoutUser }
+)(ToolBar);

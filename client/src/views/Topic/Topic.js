@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { viewAllTopic } from "../../actions/topicActions";
+import { Link } from "react-router-dom";
 
 /**
  * TODO: create a topic
@@ -9,16 +11,41 @@ import { connect } from "react-redux";
 
 import "./Topic.css";
 
+import TopicItem from "./TopicStuff/TopicItem";
+
 class Topic extends Component {
+  componentDidMount() {
+    this.props.viewAllTopic();
+  }
+
   render() {
+    const { isLoading, topics } = this.props.topic;
+    let topicContent;
+
+    if (topics === null || isLoading) {
+      topicContent = <h1>Loading...</h1>;
+    } else {
+      topicContent =
+        topics.length === 0 ? (
+          <h1>No available topics! Please create one if you'd like!</h1>
+        ) : (
+          <TopicItem topics={topics} />
+        );
+    }
+
     return (
       <div className="container">
         <div className="main-content">
-          <div className="left">
-            <h1>TOPIC SECTION</h1>
-          </div>
+          <div className="left">{topicContent}</div>
           <div className="right">
-            <h1>CREATING TOPIC/POSTS</h1>
+            <p>
+              Your personal Custom forum frontpage. Come here to check in with
+              your favorite communities
+            </p>
+            <div className="btnGroup">
+              <Link to="/create-post">create post</Link>
+              <Link to="/create-topic">create community</Link>
+            </div>
           </div>
         </div>
       </div>
@@ -27,14 +54,15 @@ class Topic extends Component {
 }
 
 Topic.propTypes = {
-  auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  topic: PropTypes.object.isRequired,
+  viewAllTopic: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth,
-  errors: state.errors
-  // topic => posts
+  topic: state.topic
 });
 
-export default connect(mapStateToProps)(Topic);
+export default connect(
+  mapStateToProps,
+  { viewAllTopic }
+)(Topic);
