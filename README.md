@@ -2,6 +2,29 @@
 
 Custom forum just like reddit, allow user to create a topic, and make a post about that specific topic!
 
+# Updates
+
+- Modified changes for the API endpoints - 2/28/19
+- Updated security for expired token ~ should automatically log out user if token expired - 2/28/19
+
+# Current Features
+
+- Able to create your own community
+- Able to post on other communities
+- Have access to your dashboard to view your posts, comments, likes & saved posts
+- Able to comment posts
+- Able to like + unlike posts
+- Able to subscribe + unsubscribe communities
+- Very minimalistic + simplistic UI design
+
+# Upcoming Features
+
+- Able to upload images / links / etc...
+- Able to chain comments
+- Able to report posts / communities / users
+- Notification bar or mail box
+- Add user as friends + group discussion
+
 # What I Learned
 
 - Able to structure asynchronous coding pattern
@@ -14,6 +37,7 @@ Custom forum just like reddit, allow user to create a topic, and make a post abo
 - Understand how session cookies works + how to work with cookies
 - Understand how to perform access control in front + back end development
 - Understand the difference between client side validation + server side validation
+- Understand how component lifecycle works and why I should use them
 
 # Technology I used to build this application
 
@@ -23,6 +47,7 @@ Custom forum just like reddit, allow user to create a topic, and make a post abo
   - React-router-dom
   - Redux-thunk
   - React-redux
+  - classnames
 - Backend:
   - NodeJS
   - MongoDB
@@ -49,6 +74,7 @@ Custom forum just like reddit, allow user to create a topic, and make a post abo
 # Why am I doing this project? And what's it for?
 
 - This is my side project that I'm working on, and also to polish my skills!
+- I am also doing this project for the people that aren't experiences with ReactJS or need some refresher!
 
 # Finish Product
 
