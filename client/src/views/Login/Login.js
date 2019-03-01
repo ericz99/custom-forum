@@ -46,7 +46,7 @@ class Login extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  onSubmitHandler = e => {
+  onSubmitHandler = async e => {
     e.preventDefault();
 
     // create user data
@@ -67,7 +67,7 @@ class Login extends Component {
     // clear errors
     this.setState({ clientErrors: [] });
     // submit our user credential
-    this.props.loginUser(userData);
+    await this.props.loginUser(userData);
   };
 
   render() {

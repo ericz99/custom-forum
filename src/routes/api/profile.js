@@ -4,7 +4,8 @@ const passport = require("passport");
 
 const {
   testAPIRoute,
-  loadProfileAPIRoute
+  loadProfileAPIRoute,
+  displayProfile
 } = require("../../controllers/profile");
 
 // @route   GET api/profile/test

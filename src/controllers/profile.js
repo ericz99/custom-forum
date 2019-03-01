@@ -26,19 +26,20 @@ module.exports = {
   // @access  Private
   loadProfileAPIRoute: async (req, res, next) => {
     try {
-      const profile = await Profile.findOne({ "user.id": req.user.id });
+      const post = await Post.find();
 
-      // if we already configured user settings => then just display it
-      if (profile) {
-        return res.status(200).json({
-          statusCode: 200,
-          error: null,
-          data: {
-            msg: "Successfully loaded user data!",
-            json: profile
-          }
-        });
-      }
+      const postMatch = post.filter(val => val.user.toString() == req.user.id);
+
+      const topic = await Topic.find();
+
+      const topicMatch = topic.filter(
+        val => val.user.toString() == req.user.id
+      );
+
+      const profile = await Profile.findOne({ "user.id": req.user.id })
+        .populate("post")
+        .populate("topic")
+        .exec();
 
       // create a preload profile object
       const preloadProfile = new Profile({
@@ -47,7 +48,9 @@ module.exports = {
           name: req.user.name,
           email: req.user.email,
           date: req.user.date
-        }
+        },
+        post: postMatch,
+        topic: topicMatch
       });
 
       // save it to database

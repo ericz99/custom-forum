@@ -4,20 +4,28 @@
  */
 
 import React from "react";
+import axios from "axios";
 import { Route, Switch } from "react-router-dom";
 import App from "./App";
 import Home from "./views/Home/Home";
 import Register from "./views/Register/Register";
 import Login from "./views/Login/Login";
 import Dashboard from "./views/Dashboard/Dashboard";
+import Topics from "./views/Topics/Topics";
 import Topic from "./views/Topic/Topic";
-import TopicForm from "./views/Topic/TopicStuff/TopicForm";
+import TopicForm from "./views/Topics/TopicStuff/TopicForm";
+import PostForm from "./views/Posts/PostStuff/PostForm";
+import Profile from "./views/Profile/Profile";
+import Post from "./views/Post/Post";
 import jwt_decode from "jwt-decode";
 
 import { setCurrentUser, logoutUser } from "./actions/authActions";
 import setAuthToken from "./utils/setAuthToken";
 import store from "./store";
 import PrivateRoute from "./components/common/PrivateRoute";
+import withAuthenticated from "./hoc/withAuthenticated/withAuthenticated";
+
+const UNAUTHORIZED = 401;
 
 // if user has token in localstorage already => just auth them
 if (localStorage.jwtToken) {
@@ -38,6 +46,18 @@ if (localStorage.jwtToken) {
   }
 }
 
+// this will intercept between request / reponses and see if anything happens if user token expired!
+axios.interceptors.response.use(
+  res => res,
+  err => {
+    const { status } = err.response;
+    if (status === UNAUTHORIZED) {
+      store.dispatch(logoutUser());
+    }
+    return Promise.reject(err);
+  }
+);
+
 const Routes = () => {
   return (
     <App>
@@ -48,10 +68,22 @@ const Routes = () => {
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
       </Switch>
       <Switch>
-        <PrivateRoute exact path="/topic" component={Topic} />
+        <PrivateRoute exact path="/topics" component={Topics} />
+      </Switch>
+      <Switch>
+        <PrivateRoute exact path="/topics/:id" component={Topic} />
       </Switch>
       <Switch>
         <PrivateRoute exact path="/create-topic" component={TopicForm} />
+      </Switch>
+      <Switch>
+        <PrivateRoute exact path="/topics/:id/submit" component={PostForm} />
+      </Switch>
+      <Switch>
+        <PrivateRoute exact path="/user/:name" component={Profile} />
+      </Switch>
+      <Switch>
+        <PrivateRoute exact path="/topics/:topicId/:postId" component={Post} />
       </Switch>
     </App>
   );

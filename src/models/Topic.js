@@ -31,12 +31,10 @@ const TopicSchema = new Schema({
       }
     ]
   },
-  posts: [
+  post: [
     {
-      post: {
-        type: Schema.Types.ObjectId,
-        ref: "post"
-      }
+      type: Schema.Types.ObjectId,
+      ref: "post"
     }
   ],
   date: {

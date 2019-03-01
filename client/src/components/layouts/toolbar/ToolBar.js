@@ -41,15 +41,15 @@ class ToolBar extends Component {
       userRoute = (
         <ul className="menu">
           <li>
-            <Link to="/topic">Custom Forum</Link>
+            <Link to="/topics">Custom Forum</Link>
           </li>
           <li>
             <p>
               Welcome <strong>{user.name}</strong>{" "}
-              <span onClick={e => this.onShowHandler(e)}>
-                <i className="fa fa-ellipsis-v" />
-              </span>
             </p>
+            <span onClick={e => this.onShowHandler(e)}>
+              <i className="fa fa-ellipsis-v" />
+            </span>
             {this.state.showMenu && (
               <div
                 className="menu-list"
@@ -57,7 +57,12 @@ class ToolBar extends Component {
                   this.dropdownMenu = element;
                 }}
               >
-                <Link to="/user/:name">
+                <Link
+                  to={`/user/${user.name
+                    .split(" ")
+                    .join("-")
+                    .toLowerCase()}`}
+                >
                   <i className="fa fa-user" />
                   My Profile
                 </Link>

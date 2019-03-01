@@ -37,7 +37,12 @@
   -webkit-touch-callout: none; /* Disable Android and iOS callouts*/
 }
 
-.navbar ul li p span {
+.navbar ul li p {
+  display: inline-block;
+  padding-right: 10px;
+}
+
+.navbar ul li span {
   padding: 0 0 0 10px;
   font-size: 18px;
   vertical-align: middle;

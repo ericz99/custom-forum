@@ -5,20 +5,16 @@ const ProfileSchema = new Schema({
   user: {
     type: Object
   },
-  postRef: [
+  post: [
     {
-      post: {
-        type: Schema.Types.ObjectId,
-        ref: "post"
-      }
+      type: Schema.Types.ObjectId,
+      ref: "post"
     }
   ],
-  topicRef: [
+  topic: [
     {
-      topic: {
-        type: Schema.Types.ObjectId,
-        ref: "topic"
-      }
+      type: Schema.Types.ObjectId,
+      ref: "topic"
     }
   ],
   savePosts: [

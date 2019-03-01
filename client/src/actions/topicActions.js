@@ -59,7 +59,7 @@ export const viewTopic = topicId => async dispatch => {
     // set topic loading
     dispatch(setTopicLoading());
     // get data response from server
-    const res = await axios.get(`/api/topic/fetch/:${topicId}`);
+    const res = await axios.get(`/api/topic/fetch/${topicId}`);
     // get data destructured
     const { data } = res.data;
     // dispatch data to reducer
@@ -89,6 +89,40 @@ export const removeTopic = topicId => async dispatch => {
       type: REMOVE_TOPIC,
       payload: data
     });
+  } catch (error) {
+    if (error) {
+      dispatch({
+        type: GET_ERRORS,
+        payload: null
+      });
+    }
+  }
+};
+
+// subscribe to a topic
+export const subscribeTopic = id => async dispatch => {
+  try {
+    // make request
+    await axios.get(`/api/topic/subscribe/${id}`);
+    // refresh user screen
+    window.location.reload();
+  } catch (error) {
+    if (error) {
+      dispatch({
+        type: GET_ERRORS,
+        payload: null
+      });
+    }
+  }
+};
+
+// unsubscribe to a  topic
+export const unsubscribeTopic = id => async dispatch => {
+  try {
+    // make request
+    await axios.get(`/api/topic/unsubscribe/${id}`);
+    // refresh user screen
+    window.location.reload();
   } catch (error) {
     if (error) {
       dispatch({

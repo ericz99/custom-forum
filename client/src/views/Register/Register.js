@@ -38,11 +38,11 @@ class Register extends Component {
     }
   }
 
-  onChangeHandler = e => {
+  onChangeHandler = async e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  onSubmitHandler = e => {
+  onSubmitHandler = async e => {
     e.preventDefault();
 
     const newUser = {
@@ -64,7 +64,7 @@ class Register extends Component {
     this.setState({ clientErrors: [] });
 
     // submit form
-    this.props.registerUser(newUser, this.props.history);
+    await this.props.registerUser(newUser, this.props.history);
   };
 
   render() {

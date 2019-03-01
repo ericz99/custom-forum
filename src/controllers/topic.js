@@ -32,7 +32,9 @@ module.exports = {
     try {
       const topic = await Topic.find({})
         .sort({ date: -1 })
-        .populate("post", ["title", "desc", "image"]);
+        .populate("post")
+        .populate("users")
+        .exec();
 
       return res.status(200).json({
         statusCode: 200,
@@ -56,7 +58,8 @@ module.exports = {
       const { id } = req.params;
 
       const topic = await Topic.find({})
-        .populate("post", ["title", "desc", "image", "date"])
+        .populate("post")
+        .populate("users")
         .exec();
 
       const topicMatch = topic.find(val => val._id == id);
@@ -337,7 +340,8 @@ module.exports = {
       if (postMatch.length === 0) {
         return res.status(202).json({
           statusCode: 202,
-          error: "Opps, looks like there's not post for this topic yet!"
+          error: "Opps, looks like there's not post for this topic yet!",
+          data: null
         });
       }
 
@@ -345,10 +349,7 @@ module.exports = {
       return res.status(200).json({
         statusCode: 200,
         error: null,
-        data: {
-          msg: "Successfully fetch posts for this topic!",
-          json: postMatch
-        }
+        data: postMatch
       });
     } catch (error) {
       if (error) {

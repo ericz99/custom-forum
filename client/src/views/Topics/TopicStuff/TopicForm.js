@@ -31,7 +31,7 @@ class TopicForm extends Component {
     this.setState({ file: e.target.files[0] });
   };
 
-  onSubmitHandler = e => {
+  onSubmitHandler = async e => {
     e.preventDefault();
 
     const formData = {
@@ -40,7 +40,9 @@ class TopicForm extends Component {
       image: this.state.image
     };
 
-    this.props.addTopic(formData);
+    await this.props.addTopic(formData);
+    // then redirect user back
+    this.props.history.goBack();
   };
 
   render() {
