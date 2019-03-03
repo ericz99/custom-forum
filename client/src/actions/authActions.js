@@ -1,4 +1,10 @@
-import { GET_ERRORS, SET_CURRENT_USER } from "./types";
+import {
+  GET_ERRORS,
+  SET_CURRENT_USER,
+  INFO_MESSAGE,
+  ERROR_MESSAGE,
+  SUCCESS_MESSAGE
+} from "./types";
 
 import axios from "axios";
 import jwt_decode from "jwt-decode";
@@ -66,4 +72,28 @@ export const logoutUser = () => dispatch => {
   dispatch(setCurrentUser({}));
   // redirect user back to login
   window.location.href = "/login";
+};
+
+// info message
+export const alertInfo = data => {
+  return {
+    type: INFO_MESSAGE,
+    payload: data
+  };
+};
+
+// error message
+export const alertError = data => {
+  return {
+    type: ERROR_MESSAGE,
+    payload: data
+  };
+};
+
+// success message
+export const alertSuccess = data => {
+  return {
+    type: SUCCESS_MESSAGE,
+    payload: data
+  };
 };

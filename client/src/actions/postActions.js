@@ -52,12 +52,12 @@ export const deletePost = (postId, topicId) => async dispatch => {
 };
 
 // view post
-export const viewPost = (topicId, postId) => async dispatch => {
+export const viewPost = postId => async dispatch => {
   try {
     // set loading post
     dispatch(setPostLoading());
     // request backend
-    const res = await axios.get(`/api/post/${topicId}/${postId}/view`);
+    const res = await axios.get(`/api/post/${postId}/view`);
     // get data
     const { data } = res.data;
     // dispatch action data
@@ -66,6 +66,7 @@ export const viewPost = (topicId, postId) => async dispatch => {
       payload: data.json
     });
   } catch (error) {
+    console.log(error);
     dispatch({
       type: GET_ERRORS,
       payload: error.response.data
@@ -102,6 +103,8 @@ export const likePost = postId => async dispatch => {
   try {
     // like the post
     await axios.get(`/api/post/${postId}/like`);
+    // rerender the post of the topic
+    dispatch(viewPost(postId));
   } catch (error) {
     if (error) {
       console.log(error);
@@ -118,6 +121,42 @@ export const unlikePost = postId => async dispatch => {
   try {
     // unlike the post
     await axios.get(`/api/post/${postId}/unlike`);
+    // rerender the post of the topic
+    dispatch(viewPost(postId));
+  } catch (error) {
+    if (error) {
+      dispatch({
+        type: GET_ERRORS,
+        payload: null
+      });
+    }
+  }
+};
+
+// comment post
+export const commentPost = (postId, formData) => async dispatch => {
+  try {
+    // request endpoint
+    await axios.post(`/api/post/${postId}/comment`, formData);
+    // rerender posts
+    dispatch(viewPost(postId));
+  } catch (error) {
+    if (error) {
+      dispatch({
+        type: GET_ERRORS,
+        payload: null
+      });
+    }
+  }
+};
+
+// delete comment from post
+export const deleteCommentPost = (postId, commentId) => async dispatch => {
+  try {
+    // request endpoint
+    await axios.delete(`/api/post/${postId}/${commentId}/delete`);
+    // rerender posts
+    dispatch(viewPost(postId));
   } catch (error) {
     if (error) {
       dispatch({
