@@ -9,11 +9,13 @@ import errorReducer from "./errorReducer";
 import topicReducer from "./topicReducer";
 import postReducer from "./postReducer";
 import profileReducer from "./profileReducer";
+import alertReducer from "./alertReducer";
 
 export default combineReducers({
   auth: authReducer,
   errors: errorReducer,
   topic: topicReducer,
   post: postReducer,
-  profile: profileReducer
+  profile: profileReducer,
+  alert: alertReducer
 });
