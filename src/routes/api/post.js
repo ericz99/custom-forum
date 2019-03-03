@@ -8,7 +8,9 @@ const {
   deletePostAPIRoute,
   viewPostAPIRoute,
   likePostAPIRoute,
-  unlikePostAPIRoute
+  unlikePostAPIRoute,
+  commentPostAPIRoute,
+  deleteCommentPostAPIRoute
 } = require("../../controllers/post");
 
 // @route   GET api/post/test
@@ -38,7 +40,7 @@ Router.delete(
 // @desc    view post route
 // @access  Private
 Router.get(
-  "/:topicId/:postId/view",
+  "/:postId/view",
   passport.authenticate("jwt", { session: false }),
   viewPostAPIRoute
 );
@@ -59,6 +61,24 @@ Router.get(
   "/:postId/unlike",
   passport.authenticate("jwt", { session: false }),
   unlikePostAPIRoute
+);
+
+// @route   POST api/post/:postId/comment
+// @desc    comment post route
+// @access  Private
+Router.post(
+  "/:postId/comment",
+  passport.authenticate("jwt", { session: false }),
+  commentPostAPIRoute
+);
+
+// @route   POST api/post/:postId/:commentId/delete
+// @desc    delete comment route
+// @access  Private
+Router.delete(
+  "/:postId/:commentId/delete",
+  passport.authenticate("jwt", { session: false }),
+  deleteCommentPostAPIRoute
 );
 
 module.exports = Router;
