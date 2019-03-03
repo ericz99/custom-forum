@@ -17,6 +17,11 @@ const ProfileSchema = new Schema({
       ref: "topic"
     }
   ],
+  comment: [
+    {
+      type: Object
+    }
+  ],
   savePosts: [
     {
       post: {
