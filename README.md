@@ -2,6 +2,13 @@
 
 Custom forum just like reddit, allow user to create a topic, and make a post about that specific topic!
 
+# TODO
+
+- Iron out all bugs...
+- Improve lifecycle method logics
+- Improve user performances + runtime
+- Customize themes
+
 # Updates
 
 - Modified changes for the API endpoints - 2/28/19
