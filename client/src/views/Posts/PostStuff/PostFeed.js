@@ -7,7 +7,7 @@ class PostFeed extends Component {
     const { post, location } = this.props;
 
     return (
-      <Link to={`${location.pathname}/${post._id}`}>
+      <Link to={`${location.pathname}/${post._id}/view`}>
         <div className="feed">
           <div className="header">
             <h1>{post.title}</h1>

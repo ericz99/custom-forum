@@ -25,8 +25,6 @@ class ProfileFeed extends Component {
 
   render() {
     const { profile, value, auth } = this.props;
-
-    console.log(this.props);
     let result;
 
     // only render if posts is selected

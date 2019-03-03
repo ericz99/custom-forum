@@ -5,7 +5,7 @@ Custom forum just like reddit, allow user to create a topic, and make a post abo
 # TODO
 
 - Iron out all bugs...
-- Improve lifecycle method logics
+- Improve lifecycle method logics + start implementing some
 - Improve user performances + runtime
 - Customize themes
 

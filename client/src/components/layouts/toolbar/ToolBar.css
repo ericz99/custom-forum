@@ -86,7 +86,7 @@
 .menu i {
   vertical-align: baseline;
   font-size: 18px;
-  padding: 0 12px;
+  padding: 0 8px;
   cursor: pointer;
 }
 
@@ -111,6 +111,13 @@
   border-bottom: 1px solid #fff;
   text-align: left;
   color: #fff;
+  transition: all ease-in-out 0.4s;
+}
+
+.menu-list a:hover {
+  background: #fff;
+  color: #000;
+  transition: all ease-in-out 0.4s;
 }
 
 .menu-list a i {

@@ -17,6 +17,7 @@ import TopicForm from "./views/Topics/TopicStuff/TopicForm";
 import PostForm from "./views/Posts/PostStuff/PostForm";
 import Profile from "./views/Profile/Profile";
 import Post from "./views/Post/Post";
+import CreatePost from "./views/CreatePost";
 import jwt_decode from "jwt-decode";
 
 import { setCurrentUser, logoutUser } from "./actions/authActions";
@@ -83,7 +84,14 @@ const Routes = () => {
         <PrivateRoute exact path="/user/:name" component={Profile} />
       </Switch>
       <Switch>
-        <PrivateRoute exact path="/topics/:topicId/:postId" component={Post} />
+        <PrivateRoute
+          exact
+          path="/topics/:topicId/:postId/view"
+          component={Post}
+        />
+      </Switch>
+      <Switch>
+        <PrivateRoute exact path="/submit" component={CreatePost} />
       </Switch>
     </App>
   );

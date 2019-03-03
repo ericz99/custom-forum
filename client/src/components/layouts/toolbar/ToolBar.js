@@ -40,13 +40,13 @@ class ToolBar extends Component {
     if (isAuthenticated) {
       userRoute = (
         <div className="menu">
-          <Link to="/topics" className="logo">
-            Custom Forum
-          </Link>
+          <div className="logo">
+            <Link to="/topics">Custom Forum</Link>
+          </div>
 
           <Link to="/message/unread" className="notifier">
             <span className="num">1</span>
-            <i class="fa fa-bell-o" aria-hidden="true" />
+            <i className="fa fa-bell-o" aria-hidden="true" />
           </Link>
 
           <p>
