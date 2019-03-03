@@ -22,7 +22,7 @@ input:focus {
   outline: none;
 }
 
-form {
+.form {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -30,12 +30,14 @@ form {
   width: 360px;
   z-index: 100;
 }
-form img {
+
+.form img {
   width: 160px;
   height: auto;
   display: block;
   margin: 0 auto;
 }
+
 button {
   display: flex;
   align-items: center;
@@ -143,4 +145,14 @@ select {
   background-color: lightgray;
   color: #000;
   padding: 8px 12px;
+}
+
+.comment-form {
+  width: 100%;
+  max-width: 100%;
+  margin: 25px 0 35px 0;
+}
+
+.comment-form button {
+  width: 150px;
 }

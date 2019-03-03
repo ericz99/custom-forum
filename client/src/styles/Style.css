@@ -184,3 +184,35 @@ a {
   color: rgba(44, 130, 201, 1);
   font-weight: 900 !important;
 }
+
+.comment-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.comment-section .heading {
+  width: 100%;
+  position: relative;
+}
+
+.comment-section .comments {
+  margin: 100px 0;
+}
+
+.comment-section .heading h1 {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 32px;
+}
+
+.comment-section .feed {
+  width: 80%;
+}
+
+.comment-section .feed .more-btn {
+  top: 55px;
+}
