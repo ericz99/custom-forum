@@ -39,59 +39,61 @@ class ToolBar extends Component {
 
     if (isAuthenticated) {
       userRoute = (
-        <ul className="menu">
-          <li>
-            <Link to="/topics">Custom Forum</Link>
-          </li>
-          <li>
-            <p>
-              Welcome <strong>{user.name}</strong>{" "}
-            </p>
-            <span onClick={e => this.onShowHandler(e)}>
-              <i className="fa fa-ellipsis-v" />
-            </span>
-            {this.state.showMenu && (
-              <div
-                className="menu-list"
-                ref={element => {
-                  this.dropdownMenu = element;
-                }}
+        <div className="menu">
+          <Link to="/topics" className="logo">
+            Custom Forum
+          </Link>
+
+          <Link to="/message/unread" className="notifier">
+            <span className="num">1</span>
+            <i class="fa fa-bell-o" aria-hidden="true" />
+          </Link>
+
+          <p>
+            Welcome <strong>{user.name}</strong>{" "}
+          </p>
+          <span onClick={e => this.onShowHandler(e)}>
+            <i className="fa fa-ellipsis-v" />
+          </span>
+          {this.state.showMenu && (
+            <div
+              className="menu-list"
+              ref={element => {
+                this.dropdownMenu = element;
+              }}
+            >
+              <Link
+                to={`/user/${user.name
+                  .split(" ")
+                  .join("-")
+                  .toLowerCase()}`}
               >
-                <Link
-                  to={`/user/${user.name
-                    .split(" ")
-                    .join("-")
-                    .toLowerCase()}`}
-                >
-                  <i className="fa fa-user" />
-                  My Profile
-                </Link>
-                <Link to="/settings">
-                  <i className="fa fa-cogs" />
-                  User Settings
-                </Link>
-                <Link to="/" onClick={e => this.onClickHandler(e)}>
-                  <i className="fa fa-sign-out" />
-                  Logout
-                </Link>
-              </div>
-            )}
-          </li>
-        </ul>
+                <i className="fa fa-user" />
+                My Profile
+              </Link>
+              <Link to="/settings">
+                <i className="fa fa-cogs" />
+                User Settings
+              </Link>
+              <Link to="/" onClick={e => this.onClickHandler(e)}>
+                <i className="fa fa-sign-out" />
+                Logout
+              </Link>
+            </div>
+          )}
+        </div>
       );
     } else {
       userRoute = (
-        <ul className="menu">
-          <li>
-            <Link to="/">Custom Forum</Link>
-          </li>
-          <li>
+        <div className="menu">
+          <Link to="/" className="logo">
+            Custom Forum
+          </Link>
+          <div className="nav-links">
             <Link to="/register">Register</Link>
-          </li>
-          <li>
             <Link to="/login">Login</Link>
-          </li>
-        </ul>
+          </div>
+        </div>
       );
     }
 

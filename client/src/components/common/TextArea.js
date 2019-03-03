@@ -6,25 +6,29 @@ export default function TextArea({
   name,
   value,
   placeholder,
-  errors,
+  clientErrors,
   onChange,
   label
 }) {
   return (
     <div className="input-group">
-      <div className="label">
-        <span>
-          {label} <Emoji symbol="🧐" label="Face With Monocle" />
-        </span>
-      </div>
+      {label && (
+        <div className="label">
+          <span>
+            {label} <Emoji symbol="🧐" label="Face With Monocle" />
+          </span>
+        </div>
+      )}
       <textarea
-        className={errors.error ? "error" : ""}
+        className={clientErrors ? "error" : ""}
         name={name}
         value={value}
         placeholder={placeholder}
         onChange={onChange}
       />
-      {errors && <div className="invalid-feedback">{errors.error}</div>}
+      {clientErrors && (
+        <div className="invalid-feedback">{clientErrors[name]}</div>
+      )}{" "}
     </div>
   );
 }

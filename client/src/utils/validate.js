@@ -51,3 +51,41 @@ export const loginValidator = data => {
 
   return errors;
 };
+
+export const topicValidator = data => {
+  const errors = [];
+
+  if (data.desc.length === 0) {
+    errors.push({ desc: "Description field is required!" });
+  }
+
+  if (data.name.length === 0) {
+    errors.push({ name: "Name Field is required!" });
+  }
+
+  return errors;
+};
+
+export const postValidator = data => {
+  const errors = [];
+
+  if (data.desc.length === 0) {
+    errors.push({ desc: "Description field is required!" });
+  }
+
+  if (data.title.length === 0) {
+    errors.push({ title: "Title Field is required!" });
+  }
+
+  return errors;
+};
+
+export const commentValidator = data => {
+  const errors = [];
+
+  if (data.desc.length === 0) {
+    errors.push({ desc: "Description field is required!" });
+  }
+
+  return errors;
+};

@@ -1,15 +1,25 @@
 import React from "react";
 
+import Emoji from "./Emoji";
+
 export default function InputField({
   name,
   type,
   value,
   placeholder,
   clientErrors,
-  onChange
+  onChange,
+  label
 }) {
   return (
     <div className="input-group">
+      {label && (
+        <div className="label">
+          <span>
+            {label} <Emoji symbol="🧐" label="Face With Monocle" />
+          </span>
+        </div>
+      )}
       <input
         className={clientErrors ? "error" : ""}
         type={type}

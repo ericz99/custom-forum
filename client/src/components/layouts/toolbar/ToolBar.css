@@ -1,5 +1,4 @@
 .navbar {
-  height: 80px;
   width: auto;
   background: aliceblue;
 }
@@ -13,7 +12,7 @@
 
 .navbar ul li {
   display: inline-block;
-  padding: 0 20px;
+  padding: 0 20px 0 0;
 }
 
 .navbar ul li a {
@@ -27,6 +26,7 @@
 
 .navbar ul li:first-child {
   float: left;
+  padding: 0 20px;
 }
 
 .navbar ul li > p {
@@ -49,17 +49,68 @@
   cursor: pointer;
 }
 
+.notifier {
+  padding: 8px;
+  position: relative;
+}
+
+.notifier .num {
+  font-size: 11px;
+  font-weight: 900 !important;
+  color: #fff;
+  border: 1px solid red;
+  background: red;
+  border-radius: 5px;
+  padding: 0 5px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 1.3em;
+}
+
+.menu p {
+  padding: 0 12px;
+}
+
+.menu .nav-links a {
+  padding: 0 15px;
+}
+
+.menu i {
+  vertical-align: baseline;
+  font-size: 18px;
+  padding: 0 12px;
+  cursor: pointer;
+}
+
+.logo {
+  flex: 1;
+  font-weight: 900 !important;
+}
+
 .menu-list {
-  background: #fff;
+  background: rgba(46, 49, 49, 1);
+  position: absolute;
+  top: 78px;
+  right: 35px;
+  user-select: none;
 }
 
 .menu-list a {
   display: block;
   font-size: 14px !important;
   letter-spacing: 0 !important;
-  padding: 0 15px;
-  border-bottom: 1px solid #000;
+  padding: 20px 15px;
+  border-bottom: 1px solid #fff;
   text-align: left;
+  color: #fff;
 }
 
 .menu-list a i {
