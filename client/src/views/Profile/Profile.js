@@ -5,11 +5,15 @@ import { connect } from "react-redux";
 import { viewProfile } from "../../actions/profileActions";
 
 import ProfileItem from "./ProfileStuff/ProfileItem";
-import Select from "../../components/common/Select";
+import Option from "../../components/common/Option";
 
 class Profile extends Component {
   state = {
-    selection: {}
+    value: "posts"
+  };
+
+  onChangeHandler = e => {
+    this.setState({ value: e.target.value });
   };
 
   async componentDidMount() {
@@ -26,12 +30,9 @@ class Profile extends Component {
     }
 
     if (profile !== null && profile.post) {
-      profileContent =
-        profile.post.length === 0 ? (
-          <h1>No post available!</h1>
-        ) : (
-          <ProfileItem profile={profile} />
-        );
+      profileContent = (
+        <ProfileItem profile={profile} value={this.state.value} />
+      );
     }
 
     return (
@@ -54,7 +55,14 @@ class Profile extends Component {
               <Fragment>
                 <p>Filtering</p>
               </Fragment>
-              <Select value="Posts" name="Post" />
+              <select
+                name="selection"
+                onChange={e => this.onChangeHandler(e)}
+                value={this.state.value}
+              >
+                <option value="posts">Posts</option>
+                <option value="comments">Comments</option>
+              </select>
             </div>
           </div>
         </div>

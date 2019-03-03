@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addTopic } from "../../../actions/topicActions";
 
-import FormField from "../../../components/common/FormField";
+import InputField from "../../../components/common/InputField";
 import TextArea from "../../../components/common/TextArea";
-import Select from "../../../components/common/Select";
+import { topicValidator } from "../../../utils/validate";
 
 import "../../../styles/Form.css";
 
@@ -14,14 +14,8 @@ class TopicForm extends Component {
     name: "",
     desc: "",
     image: "",
-    errors: {}
+    clientErrors: []
   };
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
-    }
-  }
 
   onChangeHandler = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -40,27 +34,38 @@ class TopicForm extends Component {
       image: this.state.image
     };
 
+    const errors = topicValidator(formData);
+
+    // check if errors length is greater than 0
+    if (errors.length > 0) {
+      this.setState({ clientErrors: errors });
+      return;
+    }
+
+    // clear errors
+    this.setState({ clientErrors: [] });
+
     await this.props.addTopic(formData);
     // then redirect user back
     this.props.history.goBack();
   };
 
   render() {
-    const { name, desc, image, errors } = this.state;
+    const { name, desc, image, clientErrors } = this.state;
     return (
       <div className="container">
         <form
           action=""
-          className="topic-form"
+          className="topic-form form"
           onSubmit={e => this.onSubmitHandler(e)}
         >
-          <FormField
+          <InputField
             type="text"
             name="name"
             placeholder="What would you like to name your community?"
             value={name}
             onChange={e => this.onChangeHandler(e)}
-            errors={errors}
+            clientErrors={clientErrors.find(error => error.name)}
             label="Your community name!"
           />
           <TextArea
@@ -69,7 +74,7 @@ class TopicForm extends Component {
             placeholder="Please give us a short description about your community!"
             value={desc}
             onChange={e => this.onChangeHandler(e)}
-            errors={errors}
+            clientErrors={clientErrors.find(error => error.desc)}
             label="Description about your community!"
           />
           <button type="submit">
@@ -82,15 +87,10 @@ class TopicForm extends Component {
 }
 
 TopicForm.propTypes = {
-  errors: PropTypes.object.isRequired,
   addTopic: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({
-  errors: state.errors
-});
-
 export default connect(
-  mapStateToProps,
+  null,
   { addTopic }
 )(TopicForm);

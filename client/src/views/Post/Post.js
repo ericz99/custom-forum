@@ -4,32 +4,42 @@ import PropTypes from "prop-types";
 import classnames from "classnames";
 import { viewPost, likePost, unlikePost } from "../../actions/postActions";
 
+import CommentForm from "./CommentStuff/CommentForm";
+import CommentItem from "./CommentStuff/CommentItem";
+import Emoji from "../../components/common/Emoji";
+
 class Post extends Component {
+  state = {
+    toggleForm: false
+  };
+
   async componentDidMount() {
     const pathname = this.props.location.pathname.split("/");
-    await this.props.viewPost(pathname[2], pathname[3]);
+    await this.props.viewPost(pathname[3]);
   }
 
   onLikeHandler = async (e, id) => {
     e.preventDefault();
 
     await this.props.likePost(id);
-    // refresh page
-    window.location.reload();
   };
 
   onUnlikeHandler = async (e, id) => {
     e.preventDefault();
 
     await this.props.unlikePost(id);
-    // refresh page
-    window.location.reload();
   };
 
-  onCommentHandler = (e, id) => {
+  onCommentHandler = e => {
     e.preventDefault();
 
-    alert(id);
+    this.setState(prevState => ({
+      toggleForm: !prevState.toggleForm
+    }));
+  };
+
+  onDeleteCommentHandler = e => {
+    e.preventDefault();
   };
 
   findUserLikes(likes) {
@@ -48,10 +58,29 @@ class Post extends Component {
     }
   }
 
+  findUserComments(comments) {
+    if (comments !== undefined) {
+      const { auth } = this.props;
+
+      const findIndex = comments
+        .map(val => val.user.toString())
+        .indexOf(auth.user.id);
+
+      if (findIndex === -1) {
+        return false;
+      }
+
+      return true;
+    }
+  }
+
   render() {
+    const { toggleForm } = this.state;
     const { auth } = this.props;
     const { post, isLoading } = this.props.post;
+
     let postContent;
+    let commentContent;
 
     if (isLoading || post === null) {
       postContent = <h1>Loading...</h1>;
@@ -79,7 +108,7 @@ class Post extends Component {
               </span>
               <span
                 className="comment-btn"
-                onClick={e => this.onCommentHandler(e, post._id)}
+                onClick={e => this.onCommentHandler(e)}
               >
                 <i className="fa fa-commenting-o" aria-hidden="true" />
               </span>
@@ -102,11 +131,29 @@ class Post extends Component {
           </div>
         );
       }
+
+      if (post.comments !== undefined) {
+        commentContent =
+          post.comments.length === 0 ? (
+            <h1 className="comments">
+              Empty <Emoji symbol="😥" label="Sad but Relieved Face" />
+            </h1>
+          ) : (
+            <CommentItem comments={post.comments} postId={post._id} />
+          );
+      }
     }
 
     return (
       <div className="container">
         <div className="main-content">{postContent}</div>
+        <div className="comment-section">
+          <div className="heading">
+            <h1>Comments</h1>
+          </div>
+          {commentContent}
+          {toggleForm && <CommentForm />}
+        </div>
       </div>
     );
   }

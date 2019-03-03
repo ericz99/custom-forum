@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addPost } from "../../../actions/postActions";
 
-import FormField from "../../../components/common/FormField";
+import InputField from "../../../components/common/InputField";
 import TextArea from "../../../components/common/TextArea";
-import Select from "../../../components/common/Select";
+import { postValidator } from "../../../utils/validate";
 
 import "../../../styles/Form.css";
 
@@ -14,14 +14,8 @@ class PostForm extends Component {
     title: "",
     desc: "",
     image: "",
-    errors: {}
+    clientErrors: []
   };
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
-    }
-  }
 
   onSubmitHandler = async e => {
     e.preventDefault();
@@ -31,6 +25,17 @@ class PostForm extends Component {
       desc: this.state.desc,
       image: this.state.image
     };
+
+    const errors = postValidator(formData);
+
+    // check if errors length is greater than 0
+    if (errors.length > 0) {
+      this.setState({ clientErrors: errors });
+      return;
+    }
+
+    // clear errors
+    this.setState({ clientErrors: [] });
 
     await this.props.addPost(formData, this.props.match.params.id);
     // then redirect user back
@@ -42,21 +47,21 @@ class PostForm extends Component {
   };
 
   render() {
-    const { title, desc, image, errors } = this.state;
+    const { title, desc, image, clientErrors } = this.state;
     return (
       <div className="container">
         <form
           action=""
-          className="post-form"
+          className="post-form form"
           onSubmit={e => this.onSubmitHandler(e)}
         >
-          <FormField
+          <InputField
             type="text"
             name="title"
             placeholder="Title"
             value={title}
             onChange={e => this.onChangeHandler(e)}
-            errors={errors}
+            clientErrors={clientErrors.find(error => error.title)}
             label="What is your title of your post?"
           />
           <TextArea
@@ -65,7 +70,7 @@ class PostForm extends Component {
             placeholder="Description"
             value={desc}
             onChange={e => this.onChangeHandler(e)}
-            errors={errors}
+            clientErrors={clientErrors.find(error => error.desc)}
             label="Description about your post!"
           />
           <button type="submit">

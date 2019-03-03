@@ -76,7 +76,7 @@ class Login extends Component {
     return (
       <div>
         {errors.error == null ? "" : <ErrorPanel error={errors.error} />}
-        <form onSubmit={e => this.onSubmitHandler(e)}>
+        <form onSubmit={e => this.onSubmitHandler(e)} className="form">
           <InputField
             type="text"
             name="email"
