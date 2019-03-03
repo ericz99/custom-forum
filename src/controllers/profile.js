@@ -28,14 +28,23 @@ module.exports = {
     try {
       const post = await Post.find();
 
+      // get only matched post
       const postMatch = post.filter(val => val.user.toString() == req.user.id);
+
+      // get only matched comments
+      const commentMatch = post
+        .map(post => post.comments.map(comment => comment))
+        .reduce((a, b) => [...a, ...b], [])
+        .filter(comment => comment.user.toString() == req.user.id);
 
       const topic = await Topic.find();
 
+      // get only matched topic
       const topicMatch = topic.filter(
         val => val.user.toString() == req.user.id
       );
 
+      // populate stuff in this profile object
       const profile = await Profile.findOne({ "user.id": req.user.id })
         .populate("post")
         .populate("topic")
@@ -50,7 +59,8 @@ module.exports = {
           date: req.user.date
         },
         post: postMatch,
-        topic: topicMatch
+        topic: topicMatch,
+        comment: commentMatch
       });
 
       // save it to database

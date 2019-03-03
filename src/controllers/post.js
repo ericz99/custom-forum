@@ -95,7 +95,7 @@ module.exports = {
   // @access  Private
   viewPostAPIRoute: async (req, res, next) => {
     try {
-      const { topicId, postId } = req.params;
+      const { postId } = req.params;
 
       // search for an given topic by id and postid => and one of them doesn't match then it will result in error
       const post = await Post.find({}).sort({
@@ -106,7 +106,7 @@ module.exports = {
       const postMatch = post.find(val => val._id == postId);
 
       // check if post exist or if topicid of the post doesn't match the current topic id section then return error
-      if (!postMatch || postMatch.topic.toString() !== topicId) {
+      if (!postMatch) {
         return res.status(500).json({
           statusCode: 500,
           error: "Opps, looks like url that you're going to doesn't exist!"
@@ -318,13 +318,94 @@ module.exports = {
   commentPostAPIRoute: async (req, res, next) => {
     try {
       const { postId } = req.params;
-      const { title, desc, image } = req.body;
+
+      const { desc, image } = req.body;
+
+      // validate form serverside
+      if (desc === "") {
+        return res.status(404).json({
+          statusCode: 404,
+          error: "Missing field required!",
+          data: null
+        });
+      }
+
+      const commentPost = {
+        post: postId,
+        user: req.user.id,
+        desc,
+        image
+      };
 
       // find post
+      const post = await Post.find({}).sort({ date: -1 });
 
-      // find match post
+      // find post like that post id
+      const postMatch = post.find(val => val._id == postId);
 
-      // shift comment post in
+      // // shift comment post in array
+      await postMatch.comments.unshift(commentPost);
+
+      // // save it to our db
+      await postMatch.save();
+
+      // send user response
+      return res.status(200).json({
+        statusCode: 200,
+        error: null,
+        data: {
+          msg: "Successfully comment post!"
+        }
+      });
+    } catch (error) {
+      if (error) {
+        return res.status(500).json({
+          statusCode: 500,
+          error: error
+        });
+      }
+    }
+  },
+  // @route   POST api/post/:postId/:commentId/delete
+  // @desc    delete comment route
+  // @access  Private
+  deleteCommentPostAPIRoute: async (req, res, next) => {
+    try {
+      const { postId, commentId } = req.params;
+
+      // find post
+      const post = await Post.find({}).sort({ date: -1 });
+
+      // find by postid
+      const postMatch = post.find(val => val._id == postId);
+
+      // find the comment of the post
+      const findIndex = postMatch.comments
+        .map(val => val._id.toString())
+        .indexOf(commentId);
+
+      // check if user is valid
+      const findUserIndex = postMatch.comments.findIndex(
+        val => val.user == req.user.id
+      );
+
+      // check if userIndex is found and greater than -1
+      if (findUserIndex > -1) {
+        // splice out comment from array
+        await postMatch.comments.splice(findIndex, 1);
+
+        // save it to our db
+        await postMatch.save();
+
+        // send user response
+        return res.status(200).json({
+          statusCode: 200,
+          error: null,
+          data: {
+            msg: "Successfully deleted comment of the post!"
+          }
+        });
+      }
     } catch (error) {
       if (error) {
         return res.status(500).json({
