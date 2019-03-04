@@ -62,12 +62,7 @@ class ToolBar extends Component {
                 this.dropdownMenu = element;
               }}
             >
-              <Link
-                to={`/user/${user.name
-                  .split(" ")
-                  .join("-")
-                  .toLowerCase()}`}
-              >
+              <Link to={`/user/${user.name}`}>
                 <i className="fa fa-user" />
                 My Profile
               </Link>

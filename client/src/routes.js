@@ -24,7 +24,6 @@ import { setCurrentUser, logoutUser } from "./actions/authActions";
 import setAuthToken from "./utils/setAuthToken";
 import store from "./store";
 import PrivateRoute from "./components/common/PrivateRoute";
-import withAuthenticated from "./hoc/withAuthenticated/withAuthenticated";
 
 const UNAUTHORIZED = 401;
 

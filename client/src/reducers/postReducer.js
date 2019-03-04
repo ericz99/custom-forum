@@ -7,8 +7,6 @@ import {
   RESET_POSTS
 } from "../actions/types";
 
-import _ from "underscore";
-
 const initialState = {
   posts: [],
   post: {},

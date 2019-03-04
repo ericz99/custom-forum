@@ -76,7 +76,6 @@ class Post extends Component {
 
   render() {
     const { toggleForm } = this.state;
-    const { auth } = this.props;
     const { post, isLoading } = this.props.post;
 
     let postContent;
@@ -88,31 +87,6 @@ class Post extends Component {
       if (post !== null && !isLoading) {
         postContent = (
           <div className="feed">
-            <div className="btnGroup">
-              <span
-                className="like-btn"
-                onClick={e => this.onLikeHandler(e, post._id)}
-              >
-                <i
-                  className={classnames("fa fa-thumbs-o-up", {
-                    liked: this.findUserLikes(post.likes)
-                  })}
-                  aria-hidden="true"
-                />
-              </span>
-              <span
-                className="unlike-btn"
-                onClick={e => this.onUnlikeHandler(e, post._id)}
-              >
-                <i className="fa fa-thumbs-o-down" aria-hidden="true" />
-              </span>
-              <span
-                className="comment-btn"
-                onClick={e => this.onCommentHandler(e)}
-              >
-                <i className="fa fa-commenting-o" aria-hidden="true" />
-              </span>
-            </div>
             <div className="header">
               <h1>{post.title}</h1>
             </div>
@@ -127,6 +101,31 @@ class Post extends Component {
                   <span>comments: {post.comments.length}</span>
                 </Fragment>
               )}
+              <div className="btnGroup">
+                <span
+                  className="like-btn"
+                  onClick={e => this.onLikeHandler(e, post._id)}
+                >
+                  <i
+                    className={classnames("fa fa-thumbs-o-up", {
+                      liked: this.findUserLikes(post.likes)
+                    })}
+                    aria-hidden="true"
+                  />
+                </span>
+                <span
+                  className="unlike-btn"
+                  onClick={e => this.onUnlikeHandler(e, post._id)}
+                >
+                  <i className="fa fa-thumbs-o-down" aria-hidden="true" />
+                </span>
+                <span
+                  className="comment-btn"
+                  onClick={e => this.onCommentHandler(e)}
+                >
+                  <i className="fa fa-commenting-o" aria-hidden="true" />
+                </span>
+              </div>
             </div>
           </div>
         );

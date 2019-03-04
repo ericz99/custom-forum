@@ -1,8 +1,18 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import PropTypes from "prop-types";
 
 class PostFeed extends Component {
+  state = {
+    showMore: false,
+    showLess: false
+  };
+
+  onClickMoreHandler = e => {
+    alert("clicked more");
+  };
+
+  onClickLessHandler = e => {};
+
   render() {
     const { post, location } = this.props;
 

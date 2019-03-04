@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from "react";
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { deletePost, deleteCommentPost } from "../../../actions/postActions";
@@ -59,28 +58,26 @@ class ProfileFeed extends Component {
     if (value === "comments") {
       result =
         profile.comment.length !== 0 ? (
-          profile.comment.map(comment => {
-            if (comment.user === auth.user.id) {
-              return (
-                <div className="feed" key={comment._id}>
-                  <span
-                    className="more-btn"
-                    onClick={e =>
-                      this.onDeleteCommentHandler(e, comment.post, comment._id)
-                    }
-                  >
-                    <i className="fa fa-trash-o" />
-                  </span>
-                  <div className="body">
-                    <p>{comment.desc}</p>
-                  </div>
-                  <div className="footer">
-                    <span>user: {comment.user}</span>
-                  </div>
+          profile
+            .filter(comment => comment.user === auth.user.id)
+            .map(comment => (
+              <div className="feed" key={comment._id}>
+                <span
+                  className="more-btn"
+                  onClick={e =>
+                    this.onDeleteCommentHandler(e, comment.post, comment._id)
+                  }
+                >
+                  <i className="fa fa-trash-o" />
+                </span>
+                <div className="body">
+                  <p>{comment.desc}</p>
                 </div>
-              );
-            }
-          })
+                <div className="footer">
+                  <span>user: {comment.user}</span>
+                </div>
+              </div>
+            ))
         ) : (
           <h1>No comments available</h1>
         );

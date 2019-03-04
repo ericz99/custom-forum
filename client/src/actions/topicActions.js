@@ -5,7 +5,8 @@ import {
   REMOVE_TOPIC,
   VIEW_TOPIC,
   VIEW_ALL_TOPIC,
-  TOPIC_LOADING
+  TOPIC_LOADING,
+  FETCH_USER_SUBSCRIPTIONS
 } from "./types";
 
 import axios from "axios";
@@ -104,8 +105,8 @@ export const subscribeTopic = id => async dispatch => {
   try {
     // make request
     await axios.get(`/api/topic/subscribe/${id}`);
-    // refresh user screen
-    window.location.reload();
+    // rerender viewtopic instead of refreshing..
+    dispatch(viewTopic(id));
   } catch (error) {
     if (error) {
       dispatch({
@@ -121,13 +122,32 @@ export const unsubscribeTopic = id => async dispatch => {
   try {
     // make request
     await axios.get(`/api/topic/unsubscribe/${id}`);
-    // refresh user screen
-    window.location.reload();
+    // rerender viewtopic instead of refreshing..
+    dispatch(viewTopic(id));
   } catch (error) {
     if (error) {
       dispatch({
         type: GET_ERRORS,
         payload: null
+      });
+    }
+  }
+};
+
+// fetch all subscriptions
+export const fetchUserSubscriptions = () => async dispatch => {
+  try {
+    const res = await axios.get("/api/topic/fetch-subscription");
+    const { data } = res.data;
+    dispatch({
+      type: FETCH_USER_SUBSCRIPTIONS,
+      payload: data
+    });
+  } catch (error) {
+    if (error) {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error.response.data
       });
     }
   }

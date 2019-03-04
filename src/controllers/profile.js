@@ -26,7 +26,7 @@ module.exports = {
   // @access  Private
   loadProfileAPIRoute: async (req, res, next) => {
     try {
-      const post = await Post.find();
+      const post = await Post.find().sort({ date: -1 });
 
       // get only matched post
       const postMatch = post.filter(val => val.user.toString() == req.user.id);

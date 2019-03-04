@@ -1,26 +1,35 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { fetchUserSubscriptions } from "../../actions/topicActions";
+import SubmitForm from "./SubmitForm";
 
 class CreatePost extends Component {
-  render() {
-    const { topic } = this.props;
+  async componentDidMount() {
+    await this.props.fetchUserSubscriptions();
+  }
 
-    console.log(this.props);
+  render() {
+    const { subscription } = this.props;
+
     return (
-      <div>
-        <h1>creating post...</h1>
-      </div>
+      <Fragment>
+        <SubmitForm topicSelect={true} subscription={subscription} />
+      </Fragment>
     );
   }
 }
 
 CreatePost.propTypes = {
-  topic: PropTypes.object.isRequired
+  fetchUserSubscriptions: PropTypes.func.isRequired,
+  subscription: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  topic: state.topic
+  subscription: state.subscription
 });
 
-export default connect(mapStateToProps)(CreatePost);
+export default connect(
+  mapStateToProps,
+  { fetchUserSubscriptions }
+)(CreatePost);

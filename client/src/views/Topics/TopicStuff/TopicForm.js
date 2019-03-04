@@ -51,7 +51,7 @@ class TopicForm extends Component {
   };
 
   render() {
-    const { name, desc, image, clientErrors } = this.state;
+    const { name, desc, clientErrors } = this.state;
     return (
       <div className="container">
         <form

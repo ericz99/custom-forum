@@ -10,6 +10,7 @@ import topicReducer from "./topicReducer";
 import postReducer from "./postReducer";
 import profileReducer from "./profileReducer";
 import alertReducer from "./alertReducer";
+import subscriptionReducer from "./subscriptionReducer";
 
 export default combineReducers({
   auth: authReducer,
@@ -17,5 +18,6 @@ export default combineReducers({
   topic: topicReducer,
   post: postReducer,
   profile: profileReducer,
-  alert: alertReducer
+  alert: alertReducer,
+  subscription: subscriptionReducer
 });

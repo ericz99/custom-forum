@@ -3,6 +3,7 @@ const _ = require("underscore");
 // our models
 const Post = require("../models/Post");
 const Topic = require("../models/Topic");
+const User = require("../models/Users");
 
 /**
  *
@@ -350,6 +351,40 @@ module.exports = {
         statusCode: 200,
         error: null,
         data: postMatch
+      });
+    } catch (error) {
+      if (error) {
+        return res.status(500).json({
+          statusCode: 500,
+          error: error
+        });
+      }
+    }
+  },
+  // @route   GET api/topic/fetch-subscription
+  // @desc    fetch all user subscriptions
+  // @access  Private
+  fetchSubscriptionAPIRoute: async (req, res, next) => {
+    try {
+      const topic = await Topic.find().sort({ date: -1 });
+
+      // fetch all topics that the current logged user is subscribed
+      const userSubTopic = topic.filter(topic =>
+        topic.subscriber.users.some(val => val.user.toString() == req.user.id)
+      );
+
+      if (!userSubTopic) {
+        return res.status(404).json({
+          statusCode: 404,
+          error: "Opps, look's like you didn't subscribed to any communities!",
+          data: null
+        });
+      }
+
+      return res.status(200).json({
+        statusCode: 200,
+        error: null,
+        data: userSubTopic
       });
     } catch (error) {
       if (error) {

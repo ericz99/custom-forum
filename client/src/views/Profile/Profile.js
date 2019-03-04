@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { viewProfile } from "../../actions/profileActions";
 
 import ProfileItem from "./ProfileStuff/ProfileItem";
-import Option from "../../components/common/Option";
 
 class Profile extends Component {
   state = {

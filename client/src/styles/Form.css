@@ -147,6 +147,13 @@ select {
   padding: 8px 12px;
 }
 
+.post-form select {
+  padding: 20px;
+  background: darkgray;
+  color: #fff;
+  width: 100%;
+}
+
 .comment-form {
   width: 100%;
   max-width: 100%;
