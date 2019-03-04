@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { deletePost, deleteCommentPost } from "../../../actions/postActions";
 
+import Emoji from "../../../components/common/Emoji";
+
 class ProfileFeed extends Component {
   onDeletePostHandler = async (e, postId, topicId) => {
     e.preventDefault();
@@ -51,7 +53,10 @@ class ProfileFeed extends Component {
             </div>
           ))
         ) : (
-          <h1>No posts available</h1>
+          <h1>
+            No posts available{" "}
+            <Emoji symbol="😥" label="Sad but Relieved Face" />
+          </h1>
         );
     }
 
@@ -79,7 +84,10 @@ class ProfileFeed extends Component {
               </div>
             ))
         ) : (
-          <h1>No comments available</h1>
+          <h1>
+            No comments available{" "}
+            <Emoji symbol="😥" label="Sad but Relieved Face" />
+          </h1>
         );
     }
 
