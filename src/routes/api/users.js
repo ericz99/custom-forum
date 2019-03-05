@@ -6,7 +6,11 @@ const {
   testAPIRoute,
   registerAPIRoute,
   loginAPIRoute,
-  currentUserAPIRoute
+  currentUserAPIRoute,
+  changeUserPasswordAPIRoute,
+  changePasswordAPIRoute,
+  changeEmailAPIRoute,
+  changeUserEmailAPIRoute
 } = require("../../controllers/users");
 
 // @route   GET api/users/text
@@ -28,6 +32,38 @@ Router.get(
   "/current",
   passport.authenticate("jwt", { session: false }),
   currentUserAPIRoute
+);
+// @route   GET api/users/change-password
+// @desc    change user password
+// @access  Private => required valid jwt token
+Router.get(
+  "/change-password",
+  passport.authenticate("jwt", { session: false }),
+  changePasswordAPIRoute
+);
+// @route   GET api/users/change-password/:token
+// @desc    change user password => must have valid token
+// @access  Private => required valid jwt token
+Router.post(
+  "/:token/reset",
+  passport.authenticate("jwt", { session: false }),
+  changeUserPasswordAPIRoute
+);
+// @route   GET api/users/change-email
+// @desc    change user email => to another new email
+// @access  Private => required valid jwt token
+Router.get(
+  "/change-email",
+  passport.authenticate("jwt", { session: false }),
+  changeEmailAPIRoute
+);
+// @route   POST api/users/change-email
+// @desc    change user email => to another new email
+// @access  Private => required valid jwt token
+Router.post(
+  "/change-email",
+  passport.authenticate("jwt", { session: false }),
+  changeUserEmailAPIRoute
 );
 
 module.exports = Router;

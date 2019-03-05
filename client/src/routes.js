@@ -18,6 +18,8 @@ import PostForm from "./views/Posts/PostStuff/PostForm";
 import Profile from "./views/Profile/Profile";
 import Post from "./views/Post/Post";
 import CreatePost from "./views/CreatePost";
+import Setting from "./views/Setting";
+import NotFound from "./views/NotFound";
 import jwt_decode from "jwt-decode";
 
 import { setCurrentUser, logoutUser } from "./actions/authActions";
@@ -61,36 +63,24 @@ axios.interceptors.response.use(
 const Routes = () => {
   return (
     <App>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/register" component={Register} />
-      <Route exact path="/login" component={Login} />
       <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/login" component={Login} />
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
-      </Switch>
-      <Switch>
         <PrivateRoute exact path="/topics" component={Topics} />
-      </Switch>
-      <Switch>
         <PrivateRoute exact path="/topics/:id" component={Topic} />
-      </Switch>
-      <Switch>
         <PrivateRoute exact path="/create-topic" component={TopicForm} />
-      </Switch>
-      <Switch>
         <PrivateRoute exact path="/topics/:id/submit" component={PostForm} />
-      </Switch>
-      <Switch>
         <PrivateRoute exact path="/user/:name" component={Profile} />
-      </Switch>
-      <Switch>
         <PrivateRoute
           exact
           path="/topics/:topicId/:postId/view"
           component={Post}
         />
-      </Switch>
-      <Switch>
         <PrivateRoute exact path="/submit" component={CreatePost} />
+        <PrivateRoute exact path="/settings" component={Setting} />
+        <Route component={NotFound} />
       </Switch>
     </App>
   );

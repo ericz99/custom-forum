@@ -13,6 +13,8 @@ Custom forum just like reddit, allow user to create a topic, and make a post abo
 
 - Modified changes for the API endpoints - 2/28/19
 - Updated security for expired token ~ should automatically log out user if token expired - 2/28/19
+- Majority of the frontend UI & features is done! - 3/4/19
+- Added password reset, email verification & switch email - 3/4/19
 
 # Current Features
 
@@ -23,6 +25,7 @@ Custom forum just like reddit, allow user to create a topic, and make a post abo
 - Able to like + unlike posts
 - Able to subscribe + unsubscribe communities
 - Very minimalistic + simplistic UI design
+- Email verification + Password reset + Switch email
 
 # Upcoming Features
 

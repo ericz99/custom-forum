@@ -63,7 +63,7 @@ class ProfileFeed extends Component {
     if (value === "comments") {
       result =
         profile.comment.length !== 0 ? (
-          profile
+          profile.comment
             .filter(comment => comment.user === auth.user.id)
             .map(comment => (
               <div className="feed" key={comment._id}>

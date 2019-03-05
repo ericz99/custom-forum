@@ -1,9 +1,8 @@
 import { INFO_MESSAGE, ERROR_MESSAGE, SUCCESS_MESSAGE } from "../actions/types";
 
 const initialState = {
-  infoMessage: [],
-  errorMessage: [],
-  successMessage: []
+  infoMessage: {},
+  errorMessage: {}
 };
 
 export default function(state = initialState, action) {
@@ -11,17 +10,12 @@ export default function(state = initialState, action) {
     case INFO_MESSAGE:
       return {
         ...state,
-        infoMessage: [action.payload, ...state.infoMessage]
+        infoMessage: action.payload
       };
     case ERROR_MESSAGE:
       return {
         ...state,
-        errorMessage: [action.payload, ...state.errorMessage]
-      };
-    case SUCCESS_MESSAGE:
-      return {
-        ...state,
-        successMessage: [action.payload, ...state.successMessage]
+        errorMessage: action.payload
       };
     default:
       return state;

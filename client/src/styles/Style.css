@@ -95,7 +95,7 @@ a {
 
 .more-btn {
   position: absolute;
-  top: 75px;
+  bottom: 25px;
   right: 25px;
 }
 
@@ -220,4 +220,137 @@ a {
   vertical-align: sub;
   color: rgba(44, 62, 80, 1);
   padding: 0 5px;
+}
+
+.settings {
+  height: auto;
+  background-color: rgba(238, 238, 238, 1);
+  padding: 2em;
+  text-align: left;
+  position: relative;
+  margin: 2em 0;
+  width: 100%;
+  transition: all ease-in-out 0.5s;
+}
+
+.settings h2 {
+  font-size: 36px;
+  text-transform: uppercase;
+}
+
+.settings .btnGroup {
+  display: flex;
+  float: right;
+}
+
+.settings .btnGroup button:hover {
+  background: rgb(0, 121, 211);
+  color: #fff;
+  transition: all ease-in-out 0.3s;
+}
+
+.settings .info {
+  margin: 15px 0;
+}
+
+.info p {
+  font-weight: 100;
+  letter-spacing: 1px;
+}
+
+.message {
+  position: fixed;
+  bottom: 0;
+  padding: 25px 50px;
+}
+
+.info-message {
+  background: #fff;
+  margin: 25px;
+  border: 2px solid rgba(46, 204, 113, 1);
+}
+
+@media only screen and (max-width: 1024px) {
+  .main-content {
+    flex-direction: column;
+  }
+
+  .main-content .left {
+    order: 2;
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .main-content .right {
+    order: 1;
+    align-self: center;
+  }
+
+  .feed .body p {
+    font-size: 16px;
+  }
+}
+
+@media only screen and (max-width: 426px) {
+  .menu p {
+    display: none;
+  }
+
+  .feed .header h1 {
+    font-size: 26px;
+  }
+
+  .btnGroup button {
+    padding: 15px 100px;
+    width: auto;
+    margin: 15px 20px;
+  }
+
+  .main-content .right p {
+    text-align: center;
+  }
+
+  .feed .body p {
+    font-size: 14px;
+  }
+
+  .main-content .feed {
+    width: 80%;
+  }
+
+  .main-content .feed .btnGroup span {
+    margin: 0;
+    padding: 0 10px;
+  }
+
+  .main-content .feed .btnGroup span i {
+    font-size: 24px;
+  }
+
+  .comment-section .heading h1 {
+    text-align: center;
+  }
+
+  .comment-form {
+    width: 80%;
+    max-width: 80%;
+  }
+
+  .post-form {
+    width: 80%;
+    z-index: 1;
+  }
+
+  .topic-form {
+    width: 80%;
+    z-index: 1;
+  }
+
+  .content h1 {
+    text-align: center;
+  }
+
+  .menu-list {
+    z-index: 2;
+  }
 }

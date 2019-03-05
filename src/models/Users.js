@@ -18,6 +18,14 @@ const UserSchema = new Schema({
   confirmPassword: {
     type: String
   },
+  resetPasswordToken: {
+    type: String,
+    unique: true
+  },
+  resetPasswordTokenExpiry: {
+    type: Date,
+    default: Date.now
+  },
   date: {
     type: Date,
     default: Date.now

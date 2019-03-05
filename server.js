@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 5000;
 // init express app
 const app = express();
 
-const db = require("./_config/keys_dev").mongoURI;
+const db = require("./_config/keys").mongoURI;
 
 mongoose.connect(db, { useNewUrlParser: true, useCreateIndex: true }, err => {
   if (!err) {
@@ -25,6 +25,16 @@ mongoose.connect(db, { useNewUrlParser: true, useCreateIndex: true }, err => {
     app.use("/api/topic", require("./src/routes/api/topic"));
     app.use("/api/post", require("./src/routes/api/post"));
     app.use("/api/profile", require("./src/routes/api/profile"));
+
+    // server static assets if in production
+    if (process.env.NODE_ENV === "production") {
+      // set static folder
+      app.use(express.static("client/build"));
+
+      app.get("*", (req, res, next) => {
+        res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+      });
+    }
 
     app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
   } else {
