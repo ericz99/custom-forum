@@ -10,7 +10,6 @@ import App from "./App";
 import Home from "./views/Home/Home";
 import Register from "./views/Register/Register";
 import Login from "./views/Login/Login";
-import Dashboard from "./views/Dashboard/Dashboard";
 import Topics from "./views/Topics/Topics";
 import Topic from "./views/Topic/Topic";
 import TopicForm from "./views/Topics/TopicStuff/TopicForm";
@@ -67,7 +66,6 @@ const Routes = () => {
         <Route exact path="/" component={Home} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
-        <PrivateRoute exact path="/dashboard" component={Dashboard} />
         <PrivateRoute exact path="/topics" component={Topics} />
         <PrivateRoute exact path="/topics/:id" component={Topic} />
         <PrivateRoute exact path="/create-topic" component={TopicForm} />

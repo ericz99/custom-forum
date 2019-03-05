@@ -8,13 +8,14 @@ Custom forum just like reddit, allow user to create a topic, and make a post abo
 - Improve lifecycle method logics + start implementing some
 - Improve user performances + runtime
 - Customize themes
+- Add password reset, email verification & switch email
 
 # Updates
 
 - Modified changes for the API endpoints - 2/28/19
 - Updated security for expired token ~ should automatically log out user if token expired - 2/28/19
 - Majority of the frontend UI & features is done! - 3/4/19
-- Added password reset, email verification & switch email - 3/4/19
+- The application is completed, its just some small features will be added later. - 3/5/19
 
 # Current Features
 
@@ -25,7 +26,6 @@ Custom forum just like reddit, allow user to create a topic, and make a post abo
 - Able to like + unlike posts
 - Able to subscribe + unsubscribe communities
 - Very minimalistic + simplistic UI design
-- Email verification + Password reset + Switch email
 
 # Upcoming Features
 
@@ -34,6 +34,7 @@ Custom forum just like reddit, allow user to create a topic, and make a post abo
 - Able to report posts / communities / users
 - Notification bar or mail box
 - Add user as friends + group discussion
+- Email verification + Password reset + Switch email
 
 # What I Learned
 
@@ -72,14 +73,11 @@ Custom forum just like reddit, allow user to create a topic, and make a post abo
 - npm run client-install => to install client side stuff
 - npm install the main directory => to install backend stuff
 - to run both client + server same time please run => npm run dev
-- if you're planning to deploy to heroku => please make a .env file to input
-  your mongoURI, and SECRET_OR_KEY in the "MAIN DIR FOLDER" => then follow heroku guide to deploy the applicaton
+- if you're planning to deploy to heroku => please follow some guide to deploy of heroku.
 
 # Questions? or Bug report?
 
 - Please make an issue in the repo, and I'll do my best to fix it!
-- If you think you can solve it then, please do so!
-- Other then that, please search online to get the answer you want!
 
 # Why am I doing this project? And what's it for?
 
@@ -88,4 +86,4 @@ Custom forum just like reddit, allow user to create a topic, and make a post abo
 
 # Finish Product
 
-- Not available, but coming soon! (Will also have it's own domain name!)
+- https://custom-forum-app.herokuapp.com/ (Might add its own domain)
