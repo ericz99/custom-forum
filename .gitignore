@@ -1,4 +1,4 @@
 /node_modules
 package-lock.json
 .env
-/_config/keys_dev.js
+/config/keys_dev.js

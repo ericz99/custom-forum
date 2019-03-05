@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 5000;
 // init express app
 const app = express();
 
-const db = require("./_config/keys").mongoURI;
+const db = require("./config/keys").mongoURI;
 
 mongoose.connect(db, { useNewUrlParser: true, useCreateIndex: true }, err => {
   if (!err) {
@@ -18,7 +18,7 @@ mongoose.connect(db, { useNewUrlParser: true, useCreateIndex: true }, err => {
 
     // passport middleware
     app.use(passport.initialize());
-    require("./_config/passport")(passport);
+    require("./config/passport")(passport);
 
     // api routes
     app.use("/api/users", require("./src/routes/api/users"));

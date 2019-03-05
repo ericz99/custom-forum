@@ -1,7 +1,7 @@
 const JWT = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const randomstring = require("randomstring");
-const secretKeys = require("../../_config/keys_dev").secretOrKey;
+const keys = require("../../config/keys");
 const mailer = require("../../misc/mailer");
 
 // user model
@@ -117,22 +117,27 @@ module.exports = {
       // create payload for jwt to store any info
       const payload = { id: user.id, name: user.name, email: user.email };
 
-      await JWT.sign(payload, secretKeys, { expiresIn: 3600 }, (err, token) => {
-        if (!err) {
-          return res.status(200).json({
-            statusCode: 200,
-            error: null,
-            data: {
-              token: "Bearer " + token
-            }
-          });
-        } else {
-          return res.status(404).json({
-            statusCode: 404,
-            error: err
-          });
+      await JWT.sign(
+        payload,
+        keys.secretOrKey,
+        { expiresIn: 3600 },
+        (err, token) => {
+          if (!err) {
+            return res.status(200).json({
+              statusCode: 200,
+              error: null,
+              data: {
+                token: "Bearer " + token
+              }
+            });
+          } else {
+            return res.status(404).json({
+              statusCode: 404,
+              error: err
+            });
+          }
         }
-      });
+      );
     } catch (error) {
       if (error) {
         return res.status(500).json({
