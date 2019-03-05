@@ -1,10 +1,4 @@
-import {
-  GET_ERRORS,
-  CHANGE_USR_EMAIL,
-  CHANGE_USR_PASSWORD,
-  INFO_MESSAGE,
-  ERROR_MESSAGE
-} from "./types";
+import { GET_ERRORS, INFO_MESSAGE, ERROR_MESSAGE } from "./types";
 import axios from "axios";
 
 export const requestPasswordChange = () => async dispatch => {

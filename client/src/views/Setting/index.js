@@ -42,6 +42,11 @@ class Setting extends Component {
   }
 }
 
+Setting.propTypes = {
+  requestPasswordChange: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+
 const mapStateToProps = state => ({
   auth: state.auth
 });

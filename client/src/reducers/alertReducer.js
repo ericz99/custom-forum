@@ -1,4 +1,4 @@
-import { INFO_MESSAGE, ERROR_MESSAGE, SUCCESS_MESSAGE } from "../actions/types";
+import { INFO_MESSAGE, ERROR_MESSAGE } from "../actions/types";
 
 const initialState = {
   infoMessage: {},
