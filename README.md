@@ -2,6 +2,10 @@
 
 Custom forum just like reddit, allow user to create a topic, and make a post about that specific topic!
 
+# Some Issues / UI
+
+- Settings page is not responsive + only change password button is functional but does not do anything after so please avoid clicking it.
+
 # TODO
 
 - Iron out all bugs...
