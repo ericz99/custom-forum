@@ -101,6 +101,7 @@
   top: 78px;
   right: 35px;
   user-select: none;
+  z-index: 5;
 }
 
 .menu-list a {

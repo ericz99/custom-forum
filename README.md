@@ -1,10 +1,10 @@
 # Custom Forum
 
-Custom forum just like reddit, allow user to create a topic, and make a post about that specific topic!
+Custom forum just like reddit, allow user to create a topic, and make a post about that specific topic!.
 
-# Some Issues / UI
+## Plans
 
-- Settings page is not responsive + only change password button is functional but does not do anything after so please avoid clicking it.
+- I am planning to update codebase with bunch of new technology that I had learned over these past weeks, including server side rendering (nextjs) + graphql as a replacement for my backend api. I am hoping that this will actually improve web performance and also bunch of addition features will be added as well in the next update!
 
 # TODO
 
@@ -20,6 +20,8 @@ Custom forum just like reddit, allow user to create a topic, and make a post abo
 - Updated security for expired token ~ should automatically log out user if token expired - 2/28/19
 - Majority of the frontend UI & features is done! - 3/4/19
 - The application is completed, its just some small features will be added later. - 3/5/19
+- Fixed backend profile issues, it kept on resaving + duplicating profiles - 3/20/19
+- Fixed overall issues, there should be no problem at all! - 3/20/19
 
 # Current Features
 

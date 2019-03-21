@@ -66,10 +66,6 @@ class ToolBar extends Component {
                 <i className="fa fa-user" />
                 My Profile
               </Link>
-              <Link to="/settings">
-                <i className="fa fa-cogs" />
-                User Settings
-              </Link>
               <Link to="/" onClick={e => this.onClickHandler(e)}>
                 <i className="fa fa-sign-out" />
                 Logout

@@ -77,7 +77,6 @@ const Routes = () => {
           component={Post}
         />
         <PrivateRoute exact path="/submit" component={CreatePost} />
-        <PrivateRoute exact path="/settings" component={Setting} />
         <Route component={NotFound} />
       </Switch>
     </App>

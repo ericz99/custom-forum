@@ -45,10 +45,37 @@ module.exports = {
       );
 
       // populate stuff in this profile object
-      const profile = await Profile.findOne({ "user.id": req.user.id })
+      const profile = await Profile.findOneAndUpdate(
+        { "user.id": req.user.id },
+        {
+          $set: {
+            user: {
+              id: req.user.id,
+              name: req.user.name,
+              email: req.user.email,
+              date: req.user.date
+            },
+            post: postMatch,
+            topic: topicMatch,
+            comment: commentMatch
+          }
+        },
+        { new: true }
+      )
         .populate("post")
         .populate("topic")
         .exec();
+
+      if (profile) {
+        return res.status(200).json({
+          statusCode: 200,
+          error: null,
+          data: {
+            msg: "Successfully updated profile settings for user!",
+            json: profile
+          }
+        });
+      }
 
       // create a preload profile object
       const preloadProfile = new Profile({

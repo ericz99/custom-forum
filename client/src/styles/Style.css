@@ -289,9 +289,18 @@ a {
   .feed .body p {
     font-size: 16px;
   }
+
+  input,
+  textarea {
+    font-size: initial;
+  }
 }
 
 @media only screen and (max-width: 426px) {
+  input,
+  textarea {
+    font-size: initial;
+  }
   .menu p {
     display: none;
   }
